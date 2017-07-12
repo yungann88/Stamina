@@ -7,7 +7,7 @@
 }
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *
 * ======================================================= */
 body {
@@ -99,22 +99,41 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 7px 0;
   margin-bottom: 0;
 }
+/*Modified*/
 .fh5co-nav .top .num, .fh5co-nav .top .fh5co-social {
+  padding-left: 13px;
+  margin-left: 10px;
   display: inline-block;
   margin: 0;
 }
+/*New Added*/
+.fh5co-social {
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  padding-left: 30px;
+}
+
 .fh5co-nav .top .num {
   font-size: 13px;
-  padding-right: 20px;
+  padding-right: 10px;
   margin-right: 10px;
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
   *display: inline;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
   letter-spacing: 0px;
   color: rgba(255, 255, 255, 0.7);
 }
+.fh5co-nav .top .login-text {
+  font-size: 13px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  letter-spacing: 0px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
 .fh5co-nav .top .fh5co-social li {
   font-size: 14px;
 }
@@ -1563,7 +1582,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .btn:hover, .btn:active, .btn:focus {
   box-shadow: none !important;
-  outline: none !important;
+    outline: none !important;
 }
 
 .btn-primary {
@@ -1711,7 +1730,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .form-control:active, .form-control:focus {
   outline: none;
   box-shadow: none;
-  border-color: #F85A16;
+  border-color: rgba(248, 90, 22,0.5);
 }
 
 .row-pb-md {
