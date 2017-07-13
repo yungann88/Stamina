@@ -37,6 +37,9 @@
 
   <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">
 
+  <!-- Font Awesome -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
   <!-- Animate.css -->
   <link rel="stylesheet" href="css/animate.css">
   <!-- Icomoon Icon Fonts-->
@@ -60,66 +63,8 @@
   <!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-  <style type="text/css">
-    .setting-nav {
-      background-color: #3d9cb5;
-      padding-top: 15px;
-    }
-
-    .setting-nav a {
-      color: #3d9cb5;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 20px;
-      padding-right: 20px;
-      background-color: white;
-      border: 2px solid white;
-      border-radius: 50px;
-    }
-
-    .setting-nav a:hover,
-    .setting-nav .active>a {
-      color: #fff;
-      background-color: #F85A16;
-      border-color: #F85A16;
-    }
-
-    .setting-nav ul {
-      list-style: none;
-    }
-
-    .setting-nav ul li {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-
-    .setting-title {
-      color: #fff;
-      font-size: 25px;
-    }
-
-    .setting-content {
-      padding-top: 30px;
-      padding-bottom: 20px;
-    }
-
-    .btn-submit:hover,
-    .btn-submit {
-      background: #F85A16;
-      color: #fff;
-      border: 2px solid #F85A16;
-      width: 80px;
-    }
-
-    .day-title {
-      font-size: 20px;
-      margin-bottom: 7px;
-      padding-left: 5px;
-      font-family: "Work Sans", Arial, sans-serif;
-    }
-  </style>
+  <!-- Admin Page CSS -->
+  <link rel="stylesheet" href="/css/admin.css">
 
 </head>
 
@@ -136,7 +81,7 @@
               <a href="login.html" class="num" id="login">Member Login</a>
             </div>
             <div class="col-xs-9 text-right">
-              <p class="num">Call: +01 123 456 7890</p>
+              <p class="num">Call: <span id='phoneNumber'></span></p>
               <ul class="fh5co-social">
                 <li><a href="#"><i class="icon-twitter"></i></a></li>
                 <li><a href="#"><i class="icon-dribbble"></i></a></li>
@@ -164,7 +109,7 @@
                     <li><a href="#">Web Design</a></li>
                     <li><a href="#">eCommerce</a></li>
                     <li><a href="#">Branding</a></li>
-                    <li><a href="setting.html">Setting</a></li>
+                    <li><a href="setting_schedule.html">Setting</a></li>
                   </ul>
                 </li>
                 <li><a href="contact.html">Contact</a></li>
@@ -187,9 +132,9 @@
         <div class="row">
           <div class="col-xs-12 text-center menu-2">
             <ul class="list-inline">
-              <li class="active"><a href="#">Schedule</a></li>
-              <li><a href="#">Website Profile</a></li>
-              <li><a href="#">Create New Member</a></li>
+              <li><a href="setting_schedule.html">Schedule</a></li>
+              <li class="active"><a href="setting_profile.html">Website Profile</a></li>
+              <li><a href="#">Create Account</a></li>
               <li><a href="#">Modify Plan</a></li>
             </ul>
           </div>
@@ -199,74 +144,29 @@
 
     <div class="setting-content">
       <div class="container">
-        <form id="schedule-form">
-          <table class="table table-bordered">
-            <tr>
-              <td>Class ID</td>
-              <td><input type="text" class="form-control" placeholder="Class ID"></td>
-            </tr>
-            <tr>
-              <td>Day</td>
-              <td>
-                <select class="form-control">
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                  <option value="Sunday">Sunday</option>
-                </select>
-              </td>
-            </tr>
-            <td>Start Time</td>
-            <td><input type="time" class="form-control"></td>
-            <tr>
-            </tr>
-            <td>End Time</td>
-            <td><input type="time" class="form-control"></td>
-            <tr>
-              <td>Exercise</td>
-              <td><select class="form-control">
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select></td>
-            </tr>
-            <tr>
-              <td>Trainer</td>
-              <td><select class="form-control">
-                <option value="Trainer 1">Trainer 1</option>
-                <option value="Trainer 2">Trainer 2</option>
-              </select></td>
-            </tr>
-          </table>
-          <div class="row">
-            <div class="form-group col-xs-12 text-left">
-              <button type="submit" class="btn btn-default btn-submit">Add</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="monday-schedule col-xs-12">
-            <p class="day-title">Monday</p>
-            <table class="table table-bordered">
-              <tr>
-                <th>Class ID</th>
-                <th>Exercise</th>
-                <th>Start Time</th>
-                <th>End time</th>
-                <th>Trainer</th>
-                <th>Action</th>
 
-              </tr>
-            </table>
-          </div>
+        <form id="website-profile-form">
+          <div class="row">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label id="Phone Number">Phone Number</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Phone Number" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
+                <p class="help-block text-danger"></p>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 text-center">
+                <button type="submit" class="btn btn-default btn-submit">Save</button>
+              </div>
+            </div>
+        </form>
+
 
         </div>
-
       </div>
+
 
     </div>
 
@@ -357,6 +257,8 @@
   <script src="js/magnific-popup-options.js"></script>
   <!-- Main -->
   <script src="js/main.js"></script>
+  <!-- Custom -->
+  <script src="js/custom.js"></script>
 
 
 

@@ -1,0 +1,58 @@
+.setting-nav {
+  background-color: #3d9cb5;
+  padding-top: 15px;
+}
+
+.setting-nav a {
+  color: #3d9cb5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 50px;
+}
+
+.setting-nav a:hover,
+.setting-nav .active>a {
+  color: #fff;
+  background-color: #F85A16;
+  border-color: #F85A16;
+}
+
+.setting-nav ul {
+  list-style: none;
+}
+
+.setting-nav ul li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.setting-title {
+  color: #fff;
+  font-size: 25px;
+}
+
+.setting-content {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.btn-submit:hover,
+.btn-submit {
+  background: #F85A16;
+  color: #fff;
+  border: 2px solid #F85A16;
+  width: 80px;
+}
+
+.day-title {
+  font-size: 20px;
+  margin-bottom: 7px;
+  padding-left: 5px;
+  font-family: "Work Sans", Arial, sans-serif;
+}
