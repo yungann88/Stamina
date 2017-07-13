@@ -23,8 +23,8 @@ $(function() {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
-        alert('Account successfully created!');
         $('#account-create-form').trigger("reset");
+        $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
         var userId = firebase.auth().currentUser.uid;
         firebase.database().ref('/account_Info/').child(userId).set({
           fname: fname,
@@ -38,10 +38,26 @@ $(function() {
 
       })
       .catch(error => {
+        $('.failedMessage').html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Message:</span> Failed to Create Account !</div>')
         var errorCode = error.code;
         var errorMessage = error.message;
         alert('Error Code: ' + errorCode + '\nError Message: ' + errorMessage);
       });
+  });
+  /*Check login function*/
+  $('#check-login-btn').on('click', event => {
+    alert('Button Clicked');
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        userID = user.uid;
+        $('#check-login').html('<p>' + userID + ' is logged in!</p><p>')
+        var userLevel = firebase.database().ref().child('account_info').child(userID + 'acc_level').val();
+      } else {
+        // No user is signed in.
+        $('#check-login').html('<p>No one is logged in!</p>')
+      }
+    });
   });
 
   $('#website-profile-form').on('submit', event => {
