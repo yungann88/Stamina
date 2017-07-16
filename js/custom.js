@@ -10,6 +10,54 @@ $(function() {
   };
   firebase.initializeApp(config);
 
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      var userID = user.uid;
+      var userName = user.displayName;
+
+
+      var database = firebase.database().ref('/account_Info/' + userID);
+      database.on('value', function(data) {
+        var fname = data.child('fname').val();
+        var lname = data.child('lname').val();
+        var acc_level = data.child('acc_level').val();
+        $('#login-status').html('Welcome, ' + fname + ' ' + lname);
+        if (acc_level != 3) {
+          $('.admin-page').hide();
+        }
+      });
+
+
+    } else {
+      $('#login-status').html('Login');
+    }
+  });
+  /*--- Logout Button ---*/
+  $('#logout-button').on('click', event => {
+    event.preventDefault();
+    alert('button clicked');
+  });
+
+  /*--- Setting Schedule ---*/
+
+  /*--- Trainer Gather ---*/
+  var database = firebase.database().ref('/account_Info/');
+  database.on('value', function(data) {
+    var account_Info = data.val();
+    console.log(account_Info);
+    var keys = Object.keys(account_Info);
+    var trainer = new Array();
+    for (var i = 0; i < keys.length; i++) {
+      var t = keys[i];
+      var acc_level = account_Info[t].acc_level;
+      if (acc_level == 2) {
+        trainer.push(account_Info[t].fname + ' ' + account_Info[t].lname);
+        console.log(account_Info[t].fname + ' ' + account_Info[t].lname);
+      }
+    }
+  });
+
+  /*--- Setting > Account Creation ---*/
   $('#account-create-form').on('submit', event => {
     event.preventDefault();
     var fname = $('#js-fname').val();
@@ -44,25 +92,24 @@ $(function() {
         alert('Error Code: ' + errorCode + '\nError Message: ' + errorMessage);
       });
   });
-  /*Check login function*/
-  $('#check-login-btn').on('click', event => {
-    alert('Button Clicked');
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        userID = user.uid;
-        $('#check-login').html('<p>' + userID + ' is logged in!</p><p>')
-        var userLevel = firebase.database().ref().child('account_info').child(userID + 'acc_level').val();
-      } else {
-        // No user is signed in.
-        $('#check-login').html('<p>No one is logged in!</p>')
-      }
-    });
+
+
+  /*--- Login with Email Function ---*/
+  $('#login-with-email').on('click', event => {
+    event.preventDefault();
+    var email = $('#js-email').val();
+    var password = $('#js-password').val();
+
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(user => {
+        alert('Successfully logged in.');
+        location.href = 'setting_schedule.html';
+      })
+      .catch(error => {
+        alert('Failed to log in.');
+      });
   });
 
-  $('#website-profile-form').on('submit', event => {
-    event.preventDefault();
-    var phoneNumber = $('#js-phone-number').val();
-  });
 
 });

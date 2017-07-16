@@ -53,6 +53,8 @@
 
   <!-- Theme style  -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/custom.css">
 
   <!-- Modernizr JS -->
   <script src="js/modernizr-2.6.2.min.js"></script>
@@ -74,16 +76,12 @@
       <div class="top">
         <div class="container">
           <div class="row">
-            <div class="col-xs-3 text-left">
-              <a href="login.html" class="num" id="login">Member Login</a>
+            <div class="col-xs-5 text-left">
+              <a href="login.html" class="num" id="login-status"></a>
             </div>
-            <div class="col-xs-9 text-right">
+            <div class="col-xs-7 text-right">
+              <button type="button" id="logout-button" class="btn-logout btn-danger">Logout</button>
               <p class="num">Call: +01 123 456 7890</p>
-              <ul class="fh5co-social">
-                <li><a href="#"><i class="icon-twitter"></i></a></li>
-                <li><a href="#"><i class="icon-dribbble"></i></a></li>
-                <li><a href="#"><i class="icon-github"></i></a></li>
-              </ul>
             </div>
           </div>
         </div>
@@ -274,12 +272,13 @@
   <!-- Magnific Popup -->
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/magnific-popup-options.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
   <!-- Main -->
   <script src="js/main.js"></script>
   <!-- Custom -->
   <script src="js/custom.js"></script>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+
 
 
 
