@@ -38,24 +38,7 @@ $(function() {
     alert('button clicked');
   });
 
-  /*--- Setting Schedule ---*/
 
-  /*--- Trainer Gather ---*/
-  var database = firebase.database().ref('/account_Info/');
-  database.on('value', function(data) {
-    var account_Info = data.val();
-    console.log(account_Info);
-    var keys = Object.keys(account_Info);
-    var trainer = new Array();
-    for (var i = 0; i < keys.length; i++) {
-      var t = keys[i];
-      var acc_level = account_Info[t].acc_level;
-      if (acc_level == 2) {
-        trainer.push(account_Info[t].fname + ' ' + account_Info[t].lname);
-        console.log(account_Info[t].fname + ' ' + account_Info[t].lname);
-      }
-    }
-  });
 
   /*--- Setting > Account Creation ---*/
   $('#account-create-form').on('submit', event => {
@@ -113,3 +96,7 @@ $(function() {
 
 
 });
+var option = document.createElement('option');
+var trainer_list = document.getElementById('js-class-trainer');
+trainer_list.appendChild(option);
+option.innerHTML = "Trainer 1";
