@@ -1,5 +1,6 @@
 $(function() {
   // Initialize Firebase
+  //Testing
   var config = {
     apiKey: "AIzaSyAtDID7kffLZzjQYv2fpaahOd0EEHH6Apk",
     authDomain: "uccd2223-may-2017.firebaseapp.com",
@@ -35,7 +36,13 @@ $(function() {
   /*--- Logout Button ---*/
   $('#logout-button').on('click', event => {
     event.preventDefault();
-    alert('button clicked');
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      alert('Sign-out successful.');
+    }).catch(function(error) {
+      // An error happened.
+      alert('Sign-out failed.');
+    });
   });
 
 
@@ -94,9 +101,36 @@ $(function() {
       });
   });
 
+  /*--- Setting Schedule ---*/
+  $('#add-schedule-btn').on('click', event => {
+    event.preventDefault();
+    var classID = $('#js-class-id').val();
+    var classDay = $('#js-class-day').val();
+    var startTime = $('#js-class-start').val();
+    var endTime = $('#js-class-end').val();
+    var exeType = $('#js-class-trainer').val();
+
+  });
+
+  /*--- Trainer Gather ---*/
+  var database = firebase.database().ref('/account_Info/');
+  database.on('value', function(data) {
+    var account_Info = data.val();
+    console.log(account_Info);
+    var keys = Object.keys(account_Info);
+
+    for (var i = 0; i < keys.length; i++) {
+      var t = keys[i];
+      var acc_level = account_Info[t].acc_level;
+      if (acc_level == 2) {
+        var option = document.createElement('option');
+        var trainer_list = document.getElementById('js-class-trainer');
+        trainer_list.appendChild(option);
+        option.innerHTML = account_Info[t].fname + ' ' + account_Info[t].lname;
+        option.value = account_Info[t].fname + ' ' + account_Info[t].lname;
+      }
+    }
+  });
+  console.log(trainer);
 
 });
-var option = document.createElement('option');
-var trainer_list = document.getElementById('js-class-trainer');
-trainer_list.appendChild(option);
-option.innerHTML = "Trainer 1";
