@@ -11,5 +11,13 @@
   -o-transition: 0.5s;
   transition: 0.5s;
   padding: 3px 8px;
-  
+
+}
+
+.menu-1 ul li a:hover {
+  color: #F85A16 !important;
+}
+
+.menu-1 ul li a:active {
+  color: #F85A16 !important;
 }

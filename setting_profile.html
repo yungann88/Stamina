@@ -75,50 +75,7 @@
   <div class="fh5co-loader"></div>
 
   <div id="page">
-    <nav class="fh5co-nav" role="navigation">
-      <div class="top">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-5 text-left">
-              <a href="login.html" class="num" id="login-status"></a>
-            </div>
-            <div class="col-xs-7 text-right">
-              <button type="button" id="logout-button" class="btn-logout btn-danger">Logout</button>
-              <p class="num">Call: +01 123 456 7890</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="top-menu">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 text-center">
-              <div id="fh5co-logo"><a href="index.html">Stamina<span>.</span></a></div>
-            </div>
-            <div class="col-xs-12 text-center menu-1">
-              <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="trainer.html">Trainer</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li class="has-dropdown active">
-                  <a href="member_area.html">Member Area</a>
-                  <ul class="dropdown">
-                    <li><a href="#">Web Design</a></li>
-                    <li><a href="#">eCommerce</a></li>
-                    <li><a href="#">Branding</a></li>
-                    <li><a href="setting_schedule.html">Setting</a></li>
-                  </ul>
-                </li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </nav>
+    <nav id="header" class="fh5co-nav" role="navigation"></nav>
 
     <nav class="setting-nav">
       <div class="container">
@@ -142,38 +99,35 @@
 
     <div class="setting-content">
       <div class="container">
-
         <form id="website-profile-form">
           <div class="row">
+
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label id="Phone Number">Phone Number</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
                 <input type="text" class="form-control" placeholder="Phone Number" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
-               </div>
-               <div class="form-group col-xs-12 floating-label-form-group controls">
-                 <label id="Email">E-mail</label>
-                 <div class="input-group">
-                   <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
-                   <input type="text" class="form-control" placeholder="Email" id="js-email" required data-validation-required-message="Please enter your phone number.">
-                   <p class="help-block text-danger"></p>
-                 </div>
-		</div>
-
+              </div>
             </div>
+
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label id="Email">E-mail</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Email" id="js-email" required data-validation-required-message="Please enter your phone number.">
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+
             <div class="row">
               <div class="form-group col-xs-12 text-center">
                 <button type="submit" class="btn btn-default btn-submit">Save</button>
               </div>
             </div>
         </form>
-
-
         </div>
       </div>
-
-
     </div>
 
     <footer id="fh5co-footer" class="fh5co-bg" style="background-image: url(images/img_bg_1.jpg);" role="contentinfo">
@@ -267,6 +221,12 @@
   <script src="js/main.js"></script>
   <!-- Custom -->
   <script src="js/custom.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $("#header").load("header.html");
+      $("#footer").load("footer.html");
+    });
+  </script>
 
 
 
