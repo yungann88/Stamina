@@ -11,31 +11,9 @@ $(function() {
   };
   firebase.initializeApp(config);
 
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      var userID = user.uid;
-      var userName = user.displayName;
-
-
-      var database = firebase.database().ref('/account_Info/' + userID);
-      database.on('value', function(data) {
-        var fname = data.child('fname').val();
-        var lname = data.child('lname').val();
-        var acc_level = data.child('acc_level').val();
-        $('#login-status').html('Welcome, ' + fname + ' ' + lname);
-        if (acc_level != 3) {
-          $('.admin-page').hide();
-        }
-      });
-
-
-    } else {
-      $('#login-status').html('Login');
-    }
-  });
   /*--- Logout Button ---*/
-  $('#logout-button').on('click', event => {
-    event.preventDefault();
+  $(document.body).on('click', '#logout-button', function(e) {
+    e.preventDefault();
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       alert('Sign-out successful.');
@@ -46,8 +24,8 @@ $(function() {
   });
 
   /*--- Setting > Account Creation ---*/
-  $('#account-create-form').on('submit', event => {
-    event.preventDefault();
+  $('#account-create-form').on('submit', function(e) {
+    e.preventDefault();
     var fname = $('#js-fname').val();
     var lname = $('#js-lname').val();
     var nric = $('#js-nric').val();
@@ -88,6 +66,7 @@ $(function() {
     var email = $('#js-email').val();
     var password = $('#js-password').val();
 
+    console.log(email, password);
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
@@ -100,13 +79,14 @@ $(function() {
   });
 
   /*--- Setting Schedule ---*/
-  $('#add-schedule-btn').on('click', event => {
+  $(document.body).on('click', '#add-schedule-btn', event => {
     event.preventDefault();
     var classID = $('#js-class-id').val();
     var classDay = $('#js-class-day').val();
     var startTime = $('#js-class-start').val();
     var endTime = $('#js-class-end').val();
     var exeType = $('#js-class-trainer').val();
+    alert("button clicked");
 
   });
 
@@ -114,7 +94,7 @@ $(function() {
   var database = firebase.database().ref('/account_Info/');
   database.on('value', function(data) {
     var account_Info = data.val();
-    console.log(account_Info);
+    /* --- console.log(account_Info); ---*/
     var keys = Object.keys(account_Info);
 
     for (var i = 0; i < keys.length; i++) {
@@ -124,6 +104,28 @@ $(function() {
         $("#js-class-trainer").append("<option value=\"" + account_Info[t].fname + " " + account_Info[t].lname + "\">" +
           account_Info[t].fname + " " + account_Info[t].lname + "</option>");
       }
+    }
+  });
+
+  /*--- Check Login Status and Display Logout Button ---*/
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      $("#logout-button").show();
+      var userID = user.uid;
+      var database = firebase.database().ref('/account_Info/' + userID);
+      database.on('value', function(data) {
+        var fname = data.child('fname').val();
+        var lname = data.child('lname').val();
+        var acc_level = data.child('acc_level').val();
+        $('#login-status').html('Welcome, ' + fname + ' ' + lname);
+        console.log(acc_level);
+        if (acc_level == 3) {
+          $("#adminPage").show();
+        }
+      });
+    } else {
+      $('#login-status').html('Login');
+      $("#logout-button").hide();
     }
   });
 
