@@ -17,6 +17,7 @@ $(function() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       alert('Sign-out successful.');
+      location.href = 'index.html';
     }).catch(function(error) {
       // An error happened.
       alert('Sign-out failed.');
@@ -79,14 +80,28 @@ $(function() {
   });
 
   /*--- Setting Schedule ---*/
-  $(document.body).on('click', '#add-schedule-btn', event => {
-    event.preventDefault();
+  $("#admin-schedule-form").on('submit', function(e) {
+    e.preventDefault();
     var classID = $('#js-class-id').val();
     var classDay = $('#js-class-day').val();
-    var startTime = $('#js-class-start').val();
-    var endTime = $('#js-class-end').val();
-    var exeType = $('#js-class-trainer').val();
-    alert("button clicked");
+    var classSize = $('#js-class-size').val();
+    var classStartTime = $('#js-class-start').val();
+    var classEndTime = $('#js-class-end').val();
+    var classExeType = $('#js-class-exercise').val();
+    var classTrainer = $('#js-class-trainer').val();
+    console.log(classID, classDay, classSize, classStartTime, classEndTime, classExeType, classTrainer);
+
+    firebase.database().ref('/schedule_Info/').child(classID).set({
+      classID: classID,
+      classDay: classDay,
+      classSize: parseInt(classSize),
+      classStartTime: classStartTime,
+      classEndTime: classEndTime,
+      classExeType: classExeType,
+      classTrainer: classTrainer,
+    });
+
+    $('#account-create-form').trigger("reset");
 
   });
 
@@ -126,6 +141,8 @@ $(function() {
     } else {
       $('#login-status').html('Login');
       $("#logout-button").hide();
+      $("#adminPage").hide();
+
     }
   });
 

@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
 
+
   <!--
 	//////////////////////////////////////////////////////
 
@@ -67,6 +68,7 @@
 	<![endif]-->
   <link rel="stylesheet" href="/css/admin.css">
 
+
 </head>
 
 <body>
@@ -98,7 +100,7 @@
 
     <div class="setting-content">
       <div class="container">
-        <form id="schedule-form">
+        <form id="admin-schedule-form">
           <table class="table table-bordered">
             <tr>
               <td>Class ID</td>
@@ -118,12 +120,22 @@
                 </select>
               </td>
             </tr>
-            <td>Start Time</td>
-            <td><input type="time" id="js-class-start" class="form-control"></td>
+
             <tr>
+              <td>Class Size</td>
+              <td><input type="number" id="js-class-size" class="form-control"></td>
             </tr>
-            <td>End Time</td>
-            <td><input type="time" id="js-class-end" class="form-control"></td>
+
+            <tr>
+              <td>Start Time</td>
+              <td><input type="time" id="js-class-start" class="form-control"></td>
+            </tr>
+
+            <tr>
+              <td>End Time</td>
+              <td><input type="time" id="js-class-end" class="form-control"></td>
+            </tr>
+
             <tr>
               <td>Exercise</td>
               <td><select class="form-control" id="js-class-exercise">
@@ -134,11 +146,10 @@
                 <option value="Ballet Dance">Ballet Dance</option>
               </select></td>
             </tr>
+
             <tr>
               <td>Trainer</td>
-              <td><select class="form-control" id="js-class-trainer">
-
-              </select></td>
+              <td><select class="form-control" id="js-class-trainer"></select></td>
             </tr>
           </table>
           <div class="row">
@@ -148,21 +159,42 @@
           </div>
         </form>
       </div>
+      <br>
       <div class="container">
         <div class="row">
           <div class="monday-schedule col-xs-12">
-            <p class="day-title">Monday</p>
-            <table class="table table-bordered">
-              <tr>
-                <th>Class ID</th>
-                <th>Exercise</th>
-                <th>Start Time</th>
-                <th>End time</th>
-                <th>Trainer</th>
-                <th>Action</th>
+            <div class="fh5co-tabs" style="width:100%;">
+              <ul class="fh5co-tab-nav">
+                <li class="active"><a href="#" data-tab="1"><span class="visible-xs">S</span><span class="hidden-xs">Sunday</span></a></li>
+                <li><a href="#" data-tab="2"><span class="visible-xs">M</span><span class="hidden-xs">Monday</span></a></li>
+                <li><a href="#" data-tab="3"><span class="visible-xs">T</span><span class="hidden-xs">Tuesday</span></a></li>
+                <li><a href="#" data-tab="4"><span class="visible-xs">W</span><span class="hidden-xs">Wednesday</span></a></li>
 
-              </tr>
-            </table>
+                <li><a href="#" data-tab="5"><span class="visible-xs">Th</span><span class="hidden-xs">Thursday</span></a></li>
+                <li><a href="#" data-tab="6"><span class="visible-xs">F</span><span class="hidden-xs">Friday</span></a></li>
+                <li><a href="#" data-tab="7"><span class="visible-xs">S</span><span class="hidden-xs">Saturday</span></a></li>
+              </ul>
+
+              <div class="fh5co-tab-content-wrap">
+                <div class="fh5co-tab-content tab-content active" data-tab-content="1">
+                  <br>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Class ID</th>
+                      <th>Exercise</th>
+                      <th>Start Time</th>
+                      <th>End time</th>
+                      <th>Trainer</th>
+                      <th>Action</th>
+
+                    </tr>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+
+
           </div>
 
         </div>
