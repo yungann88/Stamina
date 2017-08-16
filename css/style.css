@@ -281,6 +281,7 @@ h1, h2, h3, h4, h5, h6, figure {
   background-position: center center;
   background-repeat: no-repeat;
   position: relative;
+  background-attachment: fixed;
 }
 
 .fh5co-bg {
