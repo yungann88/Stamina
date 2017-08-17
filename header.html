@@ -1,33 +1,39 @@
 <div class="top">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-5 text-left">
-        <a href="login.html" class="num" id="login-status">Login</a>
+      <div class="col-xs-4 text-left">
+        <a href="/login.html" class="num" id="login-status">Login</a>
       </div>
-      <div class="col-xs-7 text-right">
+      <div class="col-xs-8 text-right">
+
+        <p id="phoneNum" class="num">Call: +01 123 456 7890</p>
         <button type="button" id="logout-button" class="btn-logout btn-danger" hidden>Logout</button>
-        <p class="num">Call: +01 123 456 7890</p>
       </div>
     </div>
   </div>
 </div>
-<div class="top-menu">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 text-center">
-        <div id="fh5co-logo"><a href="index.html">Stamina<span>.</span></a></div>
-      </div>
-      <div class="col-xs-12 text-center menu-1">
-        <ul>
-          <li id="homePage"><a href="index.html">Home</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="trainer.html">Trainer</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-          <li><a href="setting_schedule.html" id="adminPage" hidden>Admin</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-    </div>
+
+<div class="container-fluid">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header page-scroll">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars"></i>
+                </button>
+    <a class="navbar-brand" href="/index.html">Stamina<span>.</span></a>
 
   </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <li id="homePage"><a href="/index.html">Home</a</li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/trainer.html">Trainer</a></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li id="adminPage" class="hidden"><a href="/admin/setting_schedule.html">Admin</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
 </div>

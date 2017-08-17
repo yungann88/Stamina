@@ -114,8 +114,6 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .fh5co-nav .top .num {
   font-size: 13px;
-  padding-right: 10px;
-  margin-right: 10px;
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
@@ -123,16 +121,6 @@ h1, h2, h3, h4, h5, h6, figure {
   letter-spacing: 0px;
   color: rgba(255, 255, 255, 0.7);
 }
-.fh5co-nav .top .login-text {
-  font-size: 13px;
-  display: -moz-inline-stack;
-  display: inline-block;
-  zoom: 1;
-  *display: inline;
-  letter-spacing: 0px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
 
 .fh5co-nav .top .fh5co-social li {
   font-size: 14px;
@@ -148,10 +136,20 @@ h1, h2, h3, h4, h5, h6, figure {
   font-size: 24px;
   margin: 0;
   padding: 0;
+  height: 80px;
+  position: relative;
   text-transform: uppercase;
   font-weight: bold;
   font-weight: 700;
+
   font-family: "Work Sans", Arial, sans-serif;
+}
+.fh5co-nav #fh5co-logo a {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+
+transform: translate(10%, -50%);
 }
 .fh5co-nav #fh5co-logo a span {
   color: #F85A16;

@@ -17,7 +17,7 @@ $(function() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       alert('Sign-out successful.');
-      location.href = 'index.html';
+      location.href = '/index.html';
     }).catch(function(error) {
       // An error happened.
       alert('Sign-out failed.');
@@ -72,7 +72,7 @@ $(function() {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         alert('Successfully logged in.');
-        location.href = 'setting_schedule.html';
+        location.href = "/admin/setting_schedule.html";
       })
       .catch(error => {
         alert('Failed to log in.');
@@ -135,13 +135,13 @@ $(function() {
         $('#login-status').html('Welcome, ' + fname + ' ' + lname);
         console.log(acc_level);
         if (acc_level == 3) {
-          $("#adminPage").show();
+          $("#adminPage").removeClass("hidden");
         }
       });
     } else {
       $('#login-status').html('Login');
       $("#logout-button").hide();
-      $("#adminPage").hide();
+      $("#adminPage").addClass("hidden");
     }
   });
 

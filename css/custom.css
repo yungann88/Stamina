@@ -21,3 +21,47 @@
 .menu-1 ul li a:active {
   color: #F85A16 !important;
 }
+.navbar-header .navbar-toggle {
+  color: #777777;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.navbar-header {
+  height: 90px;
+  position: relative;
+}
+.navbar-header .navbar-brand {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(10%, -30%);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-weight: 600;
+    font-size: 24px;
+}
+.navbar-header .navbar-brand span {
+  color: #F85A16;
+}
+
+.navbar-header .navbar-toggle {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);color: #777777;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+#login-status {
+  padding-left: 4%;
+}
+
+#phoneNum {
+  padding-right: 3%;
+
+}
