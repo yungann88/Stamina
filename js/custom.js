@@ -148,7 +148,7 @@ $(function() {
   /* --- Retrieve data from firebase to Admin Schedule --- */
   firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
     var newNode = data.val();
-    var newElement = "<tr><td>" + newNode.classDay + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classStartTime + "</td><td>" + newNode.classEndTime + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
+    var newElement = "<tr><td>" + newNode.classID + "</td><td>" + newNode.classDay + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classStartTime + "</td><td>" + newNode.classEndTime + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
     $("#table-monday").append(newElement);
     console.log(newNode);
   });

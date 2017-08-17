@@ -1726,6 +1726,12 @@ transform: translate(10%, -50%);
   font-size: 18px;
   font-weight: 300;
 }
+
+.input-md {
+  height: 40px;
+  font-size: 16px;
+}
+
 .form-control:active, .form-control:focus {
   outline: none;
   box-shadow: none;
