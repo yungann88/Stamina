@@ -162,5 +162,21 @@ $(function() {
     console.log(newNode);
   });
 
+  $('#feedback').on('submit', function(e) {
+    e.preventDefault();
+    var fname = $('#fname').val();
+    var lname = $('#lname').val();
+    var email = $('#email').val();
+    var subject = $('#subject').val();
+    var message = $('#message').val();
+    console.log(fname, lname, email, subject, message);
 
+    firebase.database().ref('/feedback_info/').child(subject).set({
+      fname: fname,
+      lname: lname,
+      email: email,
+      subject: subject,
+      message: message,
+    });
+  });
 });
