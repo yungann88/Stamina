@@ -227,9 +227,9 @@
           var targetID = e.target.closest("tr").id;
           console.log(IncludedClass[parseInt(targetID) - 1].Class);
           $("#incl-class").append("<option value=\"" + IncludedClass[parseInt(targetID) - 1].Class + "\">" + IncludedClass[parseInt(targetID) - 1].Class + "</option>");
-          delete IncludedClass.splice(parseInt(targetID) - 1, 1);
+          IncludedClass.splice(parseInt(targetID) - 1, 1);
           e.target.closest("tr").remove();
-
+          /*Array indexing problem (When the max index is 2, i still finding for index 4 because of targetID)*/
         });
 
         $("#add-plan-btn").on('click', function() {
