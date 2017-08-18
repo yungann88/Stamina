@@ -107,39 +107,39 @@
     <div class="setting-content">
       <div class="container">
         <form id="add-plan-form">
-          <h3>Add New Plan</h3>
+          <h3>Add New Membership Type</h3>
           <table id="add-plan-table" class="table table-bordered">
             <tr>
               <th>ID</th>
-              <td colspan="2"><input type="text" id="js-plan-id" class="form-control" placeholder="Plan ID"></td>
+              <td><input type="text" id="js-membership-id" class="form-control" placeholder="Memebrship ID"></td>
             </tr>
             <tr>
               <th>Name</th>
-              <td colspan="2"><input type="text" id="js-plan-name" class="form-control" placeholder="Plan Name"></td>
+              <td><input type="text" id="js-membership-name" class="form-control" placeholder="Membership Name"></td>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td><textarea id="js-membership-desc" class="form-control" rows="5" placeholder="Membership Description"></textarea></td>
+            </tr>
+            <tr>
+              <th>Membership Type</th>
+              <td><select id="js-membership-type" class="form-control">
+                <option disabled selected> -- select an option -- </option>
+                <option value="contract">Contract</option>
+                <option value="prepaid">Prepaid</option>
+              </select></td>
+            </tr>
+            <tr id="prepaid-visit" hidden>
+              <th>Number of visits<br><em>(Prepaid based membership)</em></th>
+              <td><input type="number" class="form-control" id="js-prepaid-times" placeholder="Number of times can visit."></td>
+            </tr>
+            <tr id="contract-month" hidden>
+              <th>Number of months<br><em>(Contract based membership)</em></th>
+              <td><input type="number" class="form-control" id="js-contract-month" placeholder="Number of month."></td>
             </tr>
             <tr>
               <th>Price</th>
-              <td colspan="2"><input type="text" id="js-plan-price" class="form-control" placeholder="Plan Price"></td>
-            </tr>
-            <tr>
-              <th>Included Classes</th>
-              <td colspan="2">
-                <label for="">Class</label>
-                <select class="form-control" id="incl-class">
-                  <option value="Cardio">Cardio</option>
-                  <option value="Body Building">Body Building</option>
-                  <option value="Yoga">Yoga</option>
-                  <option value="Boxing">Boxing</option>
-                  <option value="Ballet Dance">Ballet Dance</option>
-                </select>
-                <br>
-                <label for="">Quantity</label>
-                <input class="form-control" type="number" id="incl-quantity" placeholder="Number of time can visit the Class.">
-                <input type="hidden" name="" value="">
-                <br>
-                <button id="btn-add-class-quantity" type="button" class="btn btn-square btn-default">Add</button>
-
-              </td>
+              <td><input type="text" id="js-membership-price" class="form-control" placeholder="Membership Price"></td>
             </tr>
           </table>
           <div class="row">
@@ -207,40 +207,51 @@
     <!-- jQuery UI -->
     <script src="/jqueryui/jquery-ui.min.js"></script>
     <script type="text/javascript">
-      var IncludedClass = new Array();
       $(function() {
-        $("#btn-add-class-quantity").on('click', function() {
-          var inclClass = $("#incl-class").val();
-          var inclQuantity = parseInt($("#incl-quantity").val());
-          console.log(inclClass, inclQuantity);
-          IncludedClass.push(new classQuantityFactory(inclClass, inclQuantity));
-          console.log(inclClass);
-          $("#incl-class [value=\"" + inclClass + "\"]").remove();
-          $("#add-plan-table").append("<tr id=\"" + IncludedClass.length + "\"><td></td><td><input class=\"form-control input-md\" type=\"text\" data-id=\"" + IncludedClass.length + "|" +
-            inclClass + "|" + inclQuantity +
-            "\" placeholder=\"" + "Class: " + inclClass + " | " + "Quantity: " + inclQuantity +
-            "\" readonly></td><td width=\"60\"><button id=\"btn-del-class-quantity\" type=\"button\" class=\"btn btn-square btn-danger vcenter\">Delete</button></td></tr>");
+        $("#js-membership-type").change(function() {
+          if ($(this).val() == "contract") {
+            alert("contract");
+            $("#prepaid-visit").hide();
+            $("#contract-month").show();
+          } else if ($(this).val() == "prepaid") {
+            alert("prepaid");
+            $("#prepaid-visit").show();
+            $("#contract-month").hide();
 
+          }
         });
 
-        $(document.body).on('click', "#btn-del-class-quantity", function(e) {
-          var targetID = e.target.closest("tr").id;
-          console.log(IncludedClass[parseInt(targetID) - 1].Class);
-          $("#incl-class").append("<option value=\"" + IncludedClass[parseInt(targetID) - 1].Class + "\">" + IncludedClass[parseInt(targetID) - 1].Class + "</option>");
-          IncludedClass.splice(parseInt(targetID) - 1, 1);
-          e.target.closest("tr").remove();
-          /*Array indexing problem (When the max index is 2, i still finding for index 4 because of targetID)*/
-        });
-
-        $("#add-plan-btn").on('click', function() {
-          alert("button clicked");
+        $("#add-plan-btn").on('click', function(e) {
+          e.preventDefault();
+          var membershipId = $("#js-membership-id").val();
+          var membershipName = $("#js-membership-name").val();
+          var membershipDesc = $("#js-membership-desc").val();
+          var membershipType = $("#js-membership-type").val();
+          var membershipPrice = $("#js-membership-price").val();
+          if (membershipType == "contract") {
+            var membershipMonth = $("#js-contract-month").val();
+            firebase.database().ref('/membership_Info/').child(membershipId).set({
+              membershipId: membershipId,
+              membershipName: membershipName,
+              membershipDesc: membershipDesc,
+              membershipType: membershipType,
+              membershipMonth: parseInt(membershipMonth),
+              membershipPrice: membershipPrice,
+            });
+          } else {
+            var membershipVisits = $("#js-prepaid-times").val();
+            firebase.database().ref('/membership_Info/').child(membershipId).set({
+              membershipId: membershipId,
+              membershipName: membershipName,
+              membershipDesc: membershipDesc,
+              membershipType: membershipType,
+              membershipVisits: parseInt(membershipVisits),
+              membershipPrice: membershipPrice,
+            });
+          }
+          alert("done");
         });
       });
-
-      function classQuantityFactory(exeClass, quantity) {
-        this.Class = exeClass;
-        this.Quantity = quantity;
-      }
     </script>
 
 

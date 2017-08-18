@@ -24,6 +24,15 @@ $(function() {
     });
   });
 
+
+  $("#js-acc-level").change(function() {
+    if ($(this).val() == "1") {
+      alert("User");
+      $("#prepaid-visit").hide();
+      $("#contract-month").show();
+    }
+  });
+
   /*--- Setting > Account Creation ---*/
   $('#account-create-form').on('submit', function(e) {
     e.preventDefault();

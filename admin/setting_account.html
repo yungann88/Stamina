@@ -130,9 +130,17 @@
             <tr>
               <td>Account Level</td>
               <td><select class="form-control" id="js-acc-level">
+                <option disabled selected> -- select an option -- </option>
                 <option value="1">User</option>
                 <option value="2">Trainer</option>
                 <option value="3">Administrator</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Member type</td>
+              <td><select class="form-control" id="js-account-member-type">
+                <option disabled selected> -- select an option -- </option>
+
               </select></td>
             </tr>
           </table>
@@ -243,6 +251,25 @@
   <script src="/js/main.js"></script>
   <!-- Custom -->
   <script src="/js/custom.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      var membershipInfo;
+      firebase.database().ref('/membership_Info/').on('value', function(data) {
+        membershipInfo = data.val();
+        /* --- console.log(account_Info); ---*/
+        var keys = Object.keys(membershipInfo);
+        console.log(membershipInfo, keys);
+
+        for (var i = 0; i < keys.length; i++) {
+          var t = keys[i];
+          console.log(membershipInfo[t].membershipId, membershipInfo[t].membershipDesc);
+
+          $("#js-account-member-type").append("<option value=\"" + membershipInfo[t].membershipId + "\">" +
+            membershipInfo[t].membershipDesc + "</option>");
+        }
+      });
+    });
+  </script>
 
 
 

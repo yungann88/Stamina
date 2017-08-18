@@ -90,3 +90,21 @@
     vertical-align: middle;
     float: none;
 }
+
+.schedule-tile {
+  width: 100%;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.schedule-tile li {
+  width: 25%;
+  float: left;
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  list-style: none;
+  padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
