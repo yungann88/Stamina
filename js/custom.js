@@ -1,6 +1,5 @@
 $(function() {
   // Initialize Firebase
-  //Testing
   var config = {
     apiKey: "AIzaSyAtDID7kffLZzjQYv2fpaahOd0EEHH6Apk",
     authDomain: "uccd2223-may-2017.firebaseapp.com",
@@ -29,27 +28,30 @@ $(function() {
   /*--- Setting > Account Creation ---*/
   $('#account-create-form').on('submit', function(e) {
     e.preventDefault();
+    var updates = {};
     var password = $('#js-password').val();
-    var obj = new Object()
-    obj.fname = $('#js-fname').val();
-    obj.lname = $('#js-lname').val();
-    obj.nric = parseInt($('#js-nric').val());
-    obj.address = $('#js-address').val();
-    obj.email = $('#js-email').val();
-    obj.acc_level = parseInt($('#js-acc-level').val());
-    obj.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
-
-    firebase.auth().createUserWithEmailAndPassword(obj.email, password)
+    var userInfo = new Object();
+    var memberPlan = new Object();
+    var trainerExercise = new Object()
+    userInfo.fname = $('#js-fname').val();
+    userInfo.lname = $('#js-lname').val();
+    userInfo.nric = parseInt($('#js-nric').val());
+    userInfo.address = $('#js-address').val();
+    userInfo.email = $('#js-email').val();
+    userInfo.acc_level = parseInt($('#js-acc-level').val());
+    userInfo.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
+    firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
       .then(user => {
-        obj.newUserKey = firebase.auth().currentUser.uid;
-        if (obj.acc_level == 1) {
-          obj.member_type = $("#js-account-member-type").val();
+        userInfo.userId = firebase.auth().currentUser.uid;
+        if (userInfo.acc_level == 1) {
+          memberPlan.member_type = $("#js-account-member-type").val();
+          updates['/membership_Plan/' + userInfo.userId] = memberPlan;
+        } else if (userInfo.acc_level == 2) {
+          trainerExercise.exercise_type = $("#js-trainer-exercise-type").val();
+          updates['/trainer_Exercise/' + userInfo.userId] = trainerExercise;
 
-        } else if (obj.acc_level == 2) {
-          obj.exercise_type = $("#js-trainer-exercise-type").val();
         }
-        var updates = {};
-        updates['/account_Info/' + obj.newUserKey] = obj;
+        updates['/account_Info/' + userInfo.userId] = userInfo;
 
         firebase.database().ref().update(updates).then(function() {
           $('#account-create-form').trigger("reset");

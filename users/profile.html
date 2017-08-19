@@ -10,13 +10,23 @@
   <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
   <meta name="author" content="freehtml5.co" />
   <style type="text/css">
+    .title-field {
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    .data-field {
+      font-weight: 350;
+      padding-bottom: 13px;
+    }
+
     .profile-picture {
-      width: 250px;
-      height: 250px;
+      max-width: 300px;
+      max-height: 300px;
       display: block;
       margin: auto;
       margin-top: 5%;
-      margin-bottom: 5%;
+      margin-bottom: 7%;
     }
 
     #btn-responsive {
@@ -26,6 +36,7 @@
       background: #F85A16;
       color: #fff;
       border: 2px solid #F85A16;
+      border-radius: 5px;
     }
 
     .profile-box {
@@ -39,11 +50,19 @@
       border-radius: 5px;
       margin-bottom: 40px;
       position: relative;
-      min-height: 650px;
+      min-height: 700px;
     }
 
-    .data-field {
-      padding-bottom: 13px;
+    .profile-box2 {
+      min-height: 20px;
+      padding: 19px;
+      margin-bottom: 20px;
+      background-color: #f5f5f5;
+      border: 1px solid #e3e3e3;
+      border-radius: 4px;
+
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
     }
 
     .info {
@@ -140,17 +159,17 @@
         <div class="row">
           <div class="col-lg-5 col-md-4 col-xs-12">
             <div class="profile-box">
-              <h1 class="text-center">Profile</h1>
+              <h1 class="text-center">Personal Info</h1>
               <div class="profile-picture">
                 <img alt="profile_picture" id="profile-picture" class="img-responsive img-circle" src="">
               </div>
               <h2 class="text-center" id="profile-name"></h2>
               <div class="info">
-                <p>Email:</p>
+                <p class="title-field">Email:</p>
                 <p id="profile-email" class="data-field"></p>
-                <p>NRIC:</p>
+                <p class="title-field">NRIC:</p>
                 <p id="profile-nric" class="data-field"></p>
-                <p>Address:</p>
+                <p class="title-field">Address:</p>
                 <p id="profile-address" class="data-field"></p>
               </div>
             </div>
@@ -159,12 +178,16 @@
             <div class="profile-box">
               <h1 class="text-center">Membership</h1>
               <div class="info">
-                <p>Membership:</p>
-                <p class="data-field">Platinum Contract</p>
-                <p>Membership Type:</p>
-                <p class="data-field">Contract</p>
-                <p>Membership Description:</p>
-                <p class="data-field">Month: 18</p>
+                <p class="title-field">Membership ID:</p>
+                <p id="membership-id" class="data-field"></p>
+                <p class="title-field">Membership Name:</p>
+                <p id="membership-name" class="data-field"></p>
+                <p class="title-field">Membership Type:</p>
+                <p id="membership-type" class="data-field"></p>
+                <p class="title-field">Membership Description:</p>
+                <p id="membership-desc" class="data-field"></p>
+                <p class="title-field">Validity:</p>
+                <p id="membership-type" class="data-field"></p>
               </div>
             </div>
           </div>
@@ -184,8 +207,9 @@
 
     <!--- Popup content -->
     <div id="insert-picture-popup" class="white-popup mfp-hide">
-      <p>Upload your profile picture</p>
-      <div><img class="img-circle img-responsive" id="display-profile-picture"></div>
+      <p class="title-field">Upload your profile picture</p>
+      <p class="data-field">Current profile picture</p>
+      <div class="profile-picture"><img class="img-circle img-responsive" id="display-profile-picture"></div>
       <input type="file" id="js-profile-picture">
       <br>
       <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
@@ -231,12 +255,14 @@
         midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
       });
 
+
+
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           var userID = user.uid;
           var obj = new Object();
           var database = firebase.database().ref('/account_Info/' + userID);
-          database.on('value', function(data) {
+          database.once('value', function(data) {
             obj.profilePic = data.child('profilePic').val();
             obj.fname = data.child('fname').val();
             obj.lname = data.child('lname').val();
@@ -244,6 +270,7 @@
             obj.nric = data.child('nric').val();
             obj.address = data.child('address').val();
             $('#profile-picture').attr('src', obj.profilePic);
+            $('#display-profile-picture').attr('src', obj.profilePic);
             $('#profile-name').text(obj.fname + ' ' + obj.lname);
             $('#profile-email').text(obj.email);
             $('#profile-nric').text(obj.nric);
@@ -254,26 +281,16 @@
 
       $("#btn-upload").on("click", function(e) {
         e.preventDefault();
-        var obj;
+        var file = $("#js-profile-picture")[0].files[0];
         var userID = firebase.auth().currentUser.uid;
         var database = firebase.database().ref('/account_Info/' + userID);
-        database.on('value', function(data) {
-          obj.profilePic = data.child('profilePic').val();
-          obj.fname = data.child('fname').val();
-          obj.lname = data.child('lname').val();
-          obj.email = data.child('email').val();
-          obj.nric = data.child('nric').val();
-          obj.address = data.child('address').val();
-          obj.acc_level = data.child('acc_level').val();
-        });
-
-        alert(useridd);
-        var file = $("#js-profile-picture")[0].files[0];
-        firebase.storage().ref('profile_picture/this.jpg').put(file).then(function(snapshot) {
+        firebase.storage().ref('profile_picture/' + userID + '_profilePic.jpg').put(file).then(function(snapshot) {
           var url = snapshot.downloadURL;
-          $("#profile-picture").attr("src", url);
+          database.update({
+            profilePic: url
+          });
           $("#display-profile-picture").attr("src", url);
-
+          $("#profile-picture").attr("src", url);
         });
       });
 
