@@ -220,6 +220,14 @@ $(function() {
       message: message,
     });
   });
+  
+    /* --- Retrieve feedback to admin --- */
+  firebase.database().ref('/feedback_info/').on("child_added", function(data) {
+    var newNode = data.val();
+    var newElement = "<tr><td>" + newNode.lname + "</td><td>" + newNode.fname + "</td><td>" + newNode.email + "</td><td>" + newNode.subject + "</td><td>" + newNode.message + "</td></tr>";
+    $("#table-feedback").append(newElement);
+    console.log(newNode);
+  });
 
   $('#website-profile-form').on('submit', function(e) {
     e.preventDefault();
