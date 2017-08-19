@@ -179,4 +179,20 @@ $(function() {
       message: message,
     });
   });
+
+  $('#website-profile-form').on('submit', function(e) {
+    e.preventDefault();
+    var PhoneNumber = $('#js-phone-number').val();
+    var email = $('#js-email').val();
+    var littleInfo = $('#js-little-info').val();
+    var address = $('#js-address').val();
+    console.log(PhoneNumber, email, littleInfo, address);
+
+    firebase.database().ref('/website-info/').child(001).set({
+      PhoneNumber: PhoneNumber,
+      email: email,
+      littleInfo: littleInfo,
+      address: address,
+    });
+  });
 });
