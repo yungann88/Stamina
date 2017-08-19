@@ -124,9 +124,10 @@
   margin: 20px auto;
 }
 
-.popup-image-showcase {
-  max-width: 600px;
-  float: left;
+.popup-image {
+}
 
-  margin: auto;
+.popup-image-showcase {
+  max-width: 700px;
+  display: block;
 }
