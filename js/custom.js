@@ -187,17 +187,19 @@ $(function() {
     console.log(newNode);
   });
   
-  /* --- Retrieve data from firebase to contact detail --- */
+    /* --- Retrieve data from firebase to contact detail --- */
   firebase.database().ref('/website-info/').on("child_added", function(data) {
     var newNode = data.val();
     var newElement = newNode.PhoneNumber;
     var newElement2 = newNode.email;
     var newElement3 = newNode.address;
     var newElement4 = newNode.webpage;
+    var newElement5 = newNode.littleInfo;
     $("#phone1").append(newElement);
     $("#email1").append(newElement2);
     $("#address1").append(newElement3);
     $("#url1").append(newElement4);
+    $("#info1").append(newElement5);
     console.log(newNode);
   });
 
