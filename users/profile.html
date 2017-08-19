@@ -230,11 +230,11 @@
         type: 'inline',
         midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
       });
-      var obj = new Object();
+
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           var userID = user.uid;
-
+          var obj = new Object();
           var database = firebase.database().ref('/account_Info/' + userID);
           database.on('value', function(data) {
             obj.profilePic = data.child('profilePic').val();
@@ -252,11 +252,22 @@
         }
       });
 
-
-
       $("#btn-upload").on("click", function(e) {
         e.preventDefault();
+        var obj;
+        var userID = firebase.auth().currentUser.uid;
+        var database = firebase.database().ref('/account_Info/' + userID);
+        database.on('value', function(data) {
+          obj.profilePic = data.child('profilePic').val();
+          obj.fname = data.child('fname').val();
+          obj.lname = data.child('lname').val();
+          obj.email = data.child('email').val();
+          obj.nric = data.child('nric').val();
+          obj.address = data.child('address').val();
+          obj.acc_level = data.child('acc_level').val();
+        });
 
+        alert(useridd);
         var file = $("#js-profile-picture")[0].files[0];
         firebase.storage().ref('profile_picture/this.jpg').put(file).then(function(snapshot) {
           var url = snapshot.downloadURL;
