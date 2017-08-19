@@ -10,21 +10,47 @@
   <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
   <meta name="author" content="freehtml5.co" />
   <style type="text/css">
-    .circle {
-      width: 200px;
-      height: 200px;
-      border-radius: 100px;
-      background-color: grey;
+    .profile-picture {
+      width: 250px;
+      height: 250px;
       display: block;
       margin: auto;
       margin-top: 5%;
       margin-bottom: 5%;
     }
 
+    #btn-responsive {
+      width: 100%;
+      text-align: center;
+      word-wrap: break-word;
+      background: #F85A16;
+      color: #fff;
+      border: 2px solid #F85A16;
+    }
+
+    .profile-box {
+      border: 1px solid lightgrey;
+      width: 100%;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.05);
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      margin-bottom: 40px;
+      position: relative;
+      min-height: 650px;
+    }
+
+    .data-field {
+      padding-bottom: 13px;
+    }
+
     .info {
       margin: auto;
       width: 90%;
-      padding: 10px;
+      padding: 20px 10px;
+      line-height: 0.1;
     }
   </style>
   <!--
@@ -112,23 +138,59 @@
     <div class="setting-content profile-content">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 col-xs-12 well">
-            <h1 class="text-center">Tang Hao Quan</h1>
-            <div class="circle"></div>
-            <div class="info">
-              <p>Member Type: Platinum Prepaid</p>
-              <p>Member Period: <br>17 August 2017 - 16 September 2017</p>
+          <div class="col-lg-5 col-md-4 col-xs-12">
+            <div class="profile-box">
+              <h1 class="text-center">Profile</h1>
+              <div class="profile-picture">
+                <img alt="profile_picture" id="profile-picture" class="img-responsive img-circle" src="">
+              </div>
+              <h2 class="text-center" id="profile-name"></h2>
+              <div class="info">
+                <p>Email:</p>
+                <p id="profile-email" class="data-field"></p>
+                <p>NRIC:</p>
+                <p id="profile-nric" class="data-field"></p>
+                <p>Address:</p>
+                <p id="profile-address" class="data-field"></p>
+              </div>
             </div>
-
+          </div>
+          <div class="col-lg-5 col-md-4 col-xs-12">
+            <div class="profile-box">
+              <h1 class="text-center">Membership</h1>
+              <div class="info">
+                <p>Membership:</p>
+                <p class="data-field">Platinum Contract</p>
+                <p>Membership Type:</p>
+                <p class="data-field">Contract</p>
+                <p>Membership Description:</p>
+                <p class="data-field">Month: 18</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-xs-12">
+            <div class="profile-box">
+              <button href="#insert-picture-popup" type="button" id="btn-responsive" class="open-popup-link">Change Profile Picture</button>
+            </div>
           </div>
 
-        </div>
 
+        </div>
       </div>
 
     </div>
 
     <div id="footer"></div>
+
+    <!--- Popup content -->
+    <div id="insert-picture-popup" class="white-popup mfp-hide">
+      <p>Upload your profile picture</p>
+      <div><img class="img-circle img-responsive" id="display-profile-picture"></div>
+      <input type="file" id="js-profile-picture">
+      <br>
+      <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
+
+    </div>
 
   </div>
 
@@ -163,6 +225,43 @@
     $(function() {
       $("#header").load("/header.html");
       $("#footer").load("/footer.html");
+
+      $('.open-popup-link').magnificPopup({
+        type: 'inline',
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+      });
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          var userID = user.uid;
+          var database = firebase.database().ref('/account_Info/' + userID);
+          database.on('value', function(data) {
+            var profilePic = data.child('profilePic').val();
+            var fname = data.child('fname').val();
+            var lname = data.child('lname').val();
+            var email = data.child('email').val();
+            var nric = data.child('nric').val();
+            var address = data.child('address').val();
+            $('#profile-picture').attr('src', profilePic);
+            $('#profile-name').text(fname + ' ' + lname);
+            $('#profile-email').text(email);
+            $('#profile-nric').text(nric);
+            $('#profile-address').text(address);
+          });
+        }
+      });
+      $("#btn-upload").on("click", function(e) {
+        e.preventDefault();
+        var file = $("#js-profile-picture")[0].files[0];
+        firebase.storage().ref('profile_picture/this.jpg').put(file).then(function(snapshot) {
+          var url = snapshot.downloadURL;
+          $("#profile-picture").attr("src", url);
+          $("#display-profile-picture").attr("src", url);
+
+        });
+      });
+
+
     });
   </script>
 

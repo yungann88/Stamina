@@ -11,6 +11,8 @@ $(function() {
   };
   firebase.initializeApp(config);
 
+  var userID;
+
   /*--- Logout Button ---*/
   $(document.body).on('click', '#logout-button', function(e) {
     e.preventDefault();
@@ -160,7 +162,7 @@ $(function() {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       $("#logout-button").show();
-      var userID = user.uid;
+      userID = user.uid;
       var database = firebase.database().ref('/account_Info/' + userID);
       database.on('value', function(data) {
         var fname = data.child('fname').val();
