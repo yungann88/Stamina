@@ -90,58 +90,58 @@
               <li class="active"><a href="setting_profile.html">Website Profile</a></li>
               <li><a href="setting_account.html">Create Account</a></li>
               <li><a href="pricing_plan.html">Modify Plan</a></li>
+	      <li><a href="notification.html">Feedback</a></li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
 
-    <div class="setting-content">
+        <div class="setting-content">
       <div class="container">
         <form id="website-profile-form">
           <div class="row">
-
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="Phone Number">Phone Number</label>
+              <label id="Phone Number">OUR COMPANY : Phone Number</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Phone Number" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
+                <input type="text" class="form-control" placeholder="Phone number : (###) ###-####" pattern="\(\d[3]\)+\d[3]-\d[4]" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
-              </div>
             </div>
+			</div>
 
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="Email">E-mail</label>
+              <label id="Email">OUR COMPANY : E-mail</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Email" id="js-email" required data-validation-required-message="Please enter your phone number.">
+                <input type="text" class="form-control" placeholder="Email : (name@domain.com)" id="js-email" required data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
 
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="little-info">Little Info About Us</label>
+              <label id="address">OUR COMPANY : Address</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                <textarea class="form-control" id="js-address" rows="4" placeholder="Address" required data-validation-required-message="Please enter the address."></textarea>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label id="website">OUR COMPANY : More Information about our Website</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                <textarea class="form-control" id="js-website" rows="4" placeholder="More Information" required data-validation-required-message="Please enter the web address."></textarea>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+			
+			<div class="form-group col-xs-12 floating-label-form-group controls">
+              <label id="little-info">OUR COMPANY : A Little About Stamina</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
                 <textarea class="form-control" id="js-little-info" rows="4" placeholder="Little info about us." required data-validation-required-message="Please enter the info."></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="address">Address</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
-                <textarea class="form-control" id="js-address" rows="4" placeholder="address." required data-validation-required-message="Please enter the address."></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="website">Website Page</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
-                <textarea class="form-control" id="js-website" rows="4" placeholder="webpage." required data-validation-required-message="Please enter the web address."></textarea>
                 <p class="help-block text-danger"></p>
               </div>
             </div>
@@ -151,10 +151,11 @@
                 <button type="submit" class="btn btn-default btn-submit">Save</button>
               </div>
             </div>
-        </form>
-        </div>
+		</form>
       </div>
+	  </div>
     </div>
+
 
     <div id="footer"></div>
   </div>
