@@ -40,11 +40,6 @@ $(function() {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
         var userId = firebase.auth().currentUser.uid;
-        var file = $("#js-profile-picture")[0].files[0];
-        firebase.storage().ref('profile_picture/this.jpg').put(file).then(function(snapshot) {
-          var url = snapshot.downloadURL;
-          $("#display-profile-picture").attr("src", url);
-        });
         firebase.database().ref('/account_Info/').child(userId).set({
           fname: fname,
           lname: lname,
@@ -53,12 +48,9 @@ $(function() {
           email: email,
           userId: userId,
           acc_level: parseInt(acc_level),
-          profilePic: url,
         });
         $('#account-create-form').trigger("reset");
         $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
-
-
 
       })
       .catch(error => {
