@@ -41,7 +41,7 @@ $(function() {
 
     firebase.auth().createUserWithEmailAndPassword(obj.email, password)
       .then(user => {
-        var newUserKey = firebase.auth().currentUser.uid;
+        obj.newUserKey = firebase.auth().currentUser.uid;
         if (obj.acc_level == 1) {
           obj.member_type = $("#js-account-member-type").val();
 
@@ -49,7 +49,7 @@ $(function() {
           obj.exercise_type = $("#js-trainer-exercise-type").val();
         }
         var updates = {};
-        updates['/account_Info/' + newUserKey] = obj;
+        updates['/account_Info/' + obj.newUserKey] = obj;
 
         firebase.database().ref().update(updates).then(function() {
           $('#account-create-form').trigger("reset");
