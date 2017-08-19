@@ -136,11 +136,16 @@
                 <option value="3">Administrator</option>
               </select></td>
             </tr>
-            <tr>
+            <tr id="member-type" hidden>
               <td>Member type</td>
               <td><select class="form-control" id="js-account-member-type">
                 <option disabled selected> -- select an option -- </option>
-
+              </select></td>
+            </tr>
+            <tr id="trainer-exe" hidden>
+              <td>Exercise handled</td>
+              <td><select class="form-control" id="js-account-member-type">
+                <option disabled selected> -- select an option -- </option>
               </select></td>
             </tr>
           </table>
@@ -149,6 +154,7 @@
               <button type="submit" class="btn btn-default btn-submit">Submit</button>
             </div>
           </div>
+
         </form>
       </div>
 
@@ -253,6 +259,19 @@
   <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
+      $("#js-acc-level").change(function() {
+        if ($(this).val() == "1") {
+          $("#member-type").show();
+          $("#trainer-exe").hide();
+        } else if ($(this).val() == "2") {
+          $("#member-type").hide();
+          $("#trainer-exe").show();
+        } else {
+          $("#member-type").hide();
+          $("#trainer-exe").hide();
+        }
+      });
+
       var membershipInfo;
       firebase.database().ref('/membership_Info/').on('value', function(data) {
         membershipInfo = data.val();
@@ -267,6 +286,17 @@
           $("#js-account-member-type").append("<option value=\"" + membershipInfo[t].membershipId + "\">" +
             membershipInfo[t].membershipDesc + "</option>");
         }
+      });
+      $("#btn-upload").on("click", function() {
+        var file = $("#js-profile-picture")[0].files[0];
+        firebase.storage().ref('profile_picture/this.jpg').put(file).then(function(snapshot) {
+          var url = snapshot.downloadURL;
+          $("#display-profile-picture").attr("src", url);
+        });
+      });
+      $('.open-popup-link').magnificPopup({
+        type: 'inline',
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
       });
     });
   </script>
