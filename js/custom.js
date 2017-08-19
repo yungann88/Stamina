@@ -49,7 +49,7 @@ $(function() {
           obj.exercise_type = $("#js-trainer-exercise-type").val();
         }
         var updates = {};
-        updates['/accoount_Info/' + newUserKey] = obj;
+        updates['/account_Info/' + newUserKey] = obj;
 
         firebase.database().ref().update(updates).then(function() {
           $('#account-create-form').trigger("reset");
