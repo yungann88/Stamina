@@ -37,7 +37,7 @@ $(function() {
     obj.address = $('#js-address').val();
     obj.email = $('#js-email').val();
     obj.acc_level = parseInt($('#js-acc-level').val());
-    obj.defaultPhoto = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
+    obj.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
 
     firebase.auth().createUserWithEmailAndPassword(obj.email, password)
       .then(user => {
