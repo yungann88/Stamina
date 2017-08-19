@@ -117,3 +117,16 @@
   max-width: 500px;
   margin: 20px auto;
 }
+
+.white-popup.white-popup-large {
+  width: auto;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.popup-image-showcase {
+  max-width: 600px;
+  float: left;
+
+  margin: auto;
+}
