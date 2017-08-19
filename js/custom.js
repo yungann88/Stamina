@@ -35,20 +35,53 @@ $(function() {
     var email = $('#js-email').val();
     var password = $('#js-password').val();
     var acc_level = $('#js-acc-level').val();
+    var defaultPhoto = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
     console.log(fname, lname, nric, email, password, acc_level);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
         var userId = firebase.auth().currentUser.uid;
-        firebase.database().ref('/account_Info/').child(userId).set({
-          fname: fname,
-          lname: lname,
-          nric: parseInt(nric),
-          address: address,
-          email: email,
-          userId: userId,
-          acc_level: parseInt(acc_level),
-        });
+        if (acc_level == "1") {
+          var member_type = $("#js-account-member-type").val();
+          firebase.database().ref('/account_Info/').child(userId).set({
+            fname: fname,
+            lname: lname,
+            nric: parseInt(nric),
+            address: address,
+            email: email,
+            userId: userId,
+            acc_level: parseInt(acc_level),
+            memberType: member_type,
+            profilePic: defaultPhoto,
+          });
+        } else if (acc_level == "2") {
+          var exercise_type = $("#js-trainer-exercise-type").val();
+          firebase.database().ref('/account_Info/').child(userId).set({
+            fname: fname,
+            lname: lname,
+            nric: parseInt(nric),
+            address: address,
+            email: email,
+            userId: userId,
+            acc_level: parseInt(acc_level),
+            exerciseType: exercise_type,
+            profilePic: defaultPhoto,
+
+
+          });
+        } else {
+          firebase.database().ref('/account_Info/').child(userId).set({
+            fname: fname,
+            lname: lname,
+            nric: parseInt(nric),
+            address: address,
+            email: email,
+            userId: userId,
+            acc_level: parseInt(acc_level),
+            profilePic: defaultPhoto,
+
+          });
+        }
         $('#account-create-form').trigger("reset");
         $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
 
