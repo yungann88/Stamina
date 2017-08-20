@@ -196,14 +196,6 @@ $(function() {
   });
 
 
-  var classInfoRef = firebase.database().ref('/class_Info/');
-  classInfoRef.once('value', function(data) {
-    var class_Info = data.val();
-    var keys = Object.keys(class_Info);
 
-    for (var i = 0; i < keys.length; i++) {
-      var t = keys[i];
-    }
-  });
 
 });
