@@ -203,10 +203,10 @@
   <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
   <script>
     /*---facebook signed-in--*/
-    var provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('user_birthday');
+    var provider1 = new firebase.auth.FacebookAuthProvider();
+    provider1.addScope('user_birthday');
     function signFacebook() {
-      firebase.auth().signInWithPopup(provider).then(function(result) {
+      firebase.auth().signInWithPopup(provider1).then(function(result) {
         var token = result.credential.accessToken;
         var user = result.user;
 
