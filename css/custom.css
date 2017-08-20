@@ -57,6 +57,7 @@
   padding: 10px 10px;
   line-height: 1;
 }
+
 .btn-logout {
   margin-right: 0px;
   margin-bottom: 0px;
@@ -70,10 +71,10 @@
   -o-transition: 0.5s;
   transition: 0.5s;
   padding: 3px 8px;
-
 }
-.btn-signup{
-      margin-right: 0px;
+
+.btn-signup {
+  margin-right: 0px;
   margin-bottom: 0px;
   font-family: "Work Sans", Arial, sans-serif;
   font-size: 12px;
@@ -104,7 +105,7 @@
   -o-transition: 0.5s;
   transition: 0.5s;
   padding: 8px 10px;
-  }
+}
 
 .menu-1 ul li a:hover {
   color: #F85A16 !important;
@@ -113,6 +114,7 @@
 .menu-1 ul li a:active {
   color: #F85A16 !important;
 }
+
 .navbar-header .navbar-toggle {
   color: #777777;
   font-weight: 800;
@@ -124,26 +126,29 @@
   height: 90px;
   position: relative;
 }
+
 .navbar-header .navbar-brand {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    transform: translate(10%, -30%);
-    text-transform: uppercase;
-    font-weight: bold;
-    font-weight: 600;
-    font-size: 24px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(10%, -30%);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-weight: 600;
+  font-size: 24px;
 }
+
 .navbar-header .navbar-brand span {
   color: #F85A16;
 }
 
 .navbar-header .navbar-toggle {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 90%;
-    transform: translate(-50%, -50%);color: #777777;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  color: #777777;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 16px;
@@ -155,13 +160,12 @@
 
 #phoneNum {
   padding-right: 3%;
-
 }
 
 .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
 
 .schedule-tile {
@@ -190,33 +194,36 @@
   max-width: 500px;
   margin: 20px auto;
 }
+
 .white-popup.white-popup-md {
   width: auto;
   max-width: 500px;
-  padding:30px;
+  padding: 30px;
   margin: 20px auto;
 }
+
 .white-popup.white-popup-large {
   width: auto;
   max-width: 800px;
-  padding:15px;
+  padding: 15px;
   margin: 20px auto;
 }
-
-
 
 .info-area {
   display: inline-block;
 }
+
 .img-area {
   display: inline-block;
 }
+
 .info-area-img {
   max-width: 30%;
-  padding:20px;
+  padding: 20px;
   padding-right: 40px;
   float: left;
 }
+
 .info-area-info {
   padding: 20px;
 }
@@ -230,8 +237,107 @@
 @media screen and (max-width: 480px) {
   .info-area-img {
     max-width: 50%;
-    padding:10px;
+    padding: 10px;
     padding-right: 20px;
     float: left;
   }
+}
+
+
+/*Timetable*/
+
+#timetable, table {
+  empty-cells: show
+}
+
+.timetable-black {
+  background: #6d6d6d !important
+}
+
+#timetable .schedule_slot {
+  border-top: 5px solid #efefef
+}
+
+#timetable .schedule_slot:after {
+  content: '';
+  display: block;
+  clear: both
+}
+
+#timetable td .schedule_slot:first-child {
+  border-top: none
+}
+
+#timetable {
+  border: 10px solid #efefef;
+  background: #fff;
+  font-size: 100%
+}
+
+#timetable thead th {
+  text-align: center;
+  padding: 5.5px 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  background: #f3f3f3;
+  color: #fff
+}
+
+#timetable tbody td, #timetable thead th {
+  border-right: 10px solid #efefef;
+  border-bottom: 5px solid #efefef
+}
+
+#timetable {
+  width: 1140px
+}
+
+#timetable tbody td.timetable-black {
+  text-align: center;
+  color: #fff;
+  vertical-align: middle;
+}
+
+@media (max-width:1199px) {
+  #timetable {
+    width: 940px
+  }
+}
+
+#timetable tbody td.timetable-pur {
+  background: #b231ac!important;
+  color: #fff;
+}
+
+.timetable-empty {
+  background: #c5c5c5!important;
+}
+
+.schedule_slot_name a {
+  color: #000;
+  text-decoration: none;
+}
+
+.schedule_slot_name img {
+  width: 100%;
+}
+
+.schedule_slot_name {
+  text-align: center;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.schedule_slot_trainer {
+  font-size: 16px;
+  font-family: 'Encode Sans', sans-serif;
+  text-transform: uppercase;
+  padding: 5px 5px 0
+}
+
+.schedule_slot_timedif {
+  font-size: 10px;
+  font-family: 'Encode Sans', sans-serif;
+  text-transform: uppercase;
+  padding: 0 5px 5px
 }
