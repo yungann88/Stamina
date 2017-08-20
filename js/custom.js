@@ -201,18 +201,18 @@ $(function() {
       address: address,
     });
   });
-    /*---link the website profile form--*/
+   /*---link the website profile form--*/
   firebase.database().ref('/website-info/').on("child_added", function(data) {
     var newNode = data.val();
     var newElement = newNode.PhoneNumber;
     var newElement2 = newNode.email;
-    var newElement3 = newNode.address;
-    var newElement4 = newNode.webpage;
-    var newElement5 = newNode.littleInfo;
-    $("address1").append(newElement3);
+    var newElement3 = newNode.littleInfo;
+    var newElement4 = newNode.address;
+    var newElement5 = newNode.webpage;
+    $("#address1").append(newElement4);
     $("#phone1").append(newElement);
-    $("email1").append(newElement2);
-    $("url1").append(newElement4);
-    $("info1").append(newElement5);
+    $("#email1").append(newElement2);
+    $("#url1").append(newElement5);
+    $("#info1").append(newElement3);
   });
 });
