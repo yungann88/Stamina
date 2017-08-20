@@ -35,7 +35,7 @@ $(function() {
     var trainerExercise = new Object()
     userInfo.fname = $('#js-fname').val();
     userInfo.lname = $('#js-lname').val();
-    userInfo.nric = parseInt($('#js-nric').val());
+    userInfo.nric = $('#js-nric').val();
     userInfo.address = $('#js-address').val();
     userInfo.email = $('#js-email').val();
     userInfo.acc_level = parseInt($('#js-acc-level').val());
@@ -43,13 +43,9 @@ $(function() {
     firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
       .then(user => {
         userInfo.userId = firebase.auth().currentUser.uid;
-        if (userInfo.acc_level == 1) {
-          memberPlan.member_type = $("#js-account-member-type").val();
-          updates['/membership_Plan/' + userInfo.userId] = memberPlan;
-        } else if (userInfo.acc_level == 2) {
+        if (userInfo.acc_level == 2) {
           trainerExercise.exercise_type = $("#js-trainer-exercise-type").val();
           updates['/trainer_Exercise/' + userInfo.userId] = trainerExercise;
-
         }
         updates['/account_Info/' + userInfo.userId] = userInfo;
 
@@ -58,7 +54,6 @@ $(function() {
           $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
 
         });
-
       })
       .catch(error => {
         $('.failedMessage').html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Message:</span> Failed to Create Account !</div>')
@@ -67,7 +62,6 @@ $(function() {
         alert('Error Code: ' + errorCode + '\nError Message: ' + errorMessage);
       });
   });
-
 
   /*--- Login with Email Function ---*/
   $('#login-with-email').on('click', event => {

@@ -10,64 +10,7 @@
   <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
   <meta name="author" content="freehtml5.co" />
   <style type="text/css">
-    .title-field {
-      font-weight: 500;
-      text-decoration: underline;
-    }
 
-    .button-box {
-      padding-bottom: 10px;
-    }
-
-    .data-field {
-      font-weight: 350;
-      word-wrap: normal;
-    }
-
-    .profile-picture {
-      max-width: 270px;
-      max-height: 270px;
-      display: block;
-      margin: auto;
-      margin-top: 5%;
-      margin-bottom: 7%;
-    }
-
-    #btn-responsive {
-      width: 100%;
-      text-align: center;
-      word-wrap: break-word;
-      background: #F85A16;
-      color: #fff;
-      border: 2px solid #F85A16;
-      border-radius: 5px;
-    }
-
-    .profile-box {
-      border: 1px solid lightgrey;
-      width: 100%;
-      padding: 30px;
-      padding-bottom: 10px;
-      background: rgba(0, 0, 0, 0.05);
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      border-radius: 5px;
-      margin-bottom: 40px;
-      position: relative;
-      min-height: 200px;
-    }
-
-    .profile-box.profile-box-settings {
-      padding: 15px;
-    }
-
-    .info {
-      margin: auto;
-      width: 90%;
-      padding: 10px 10px;
-      line-height: 1;
-    }
   </style>
   <!--
 	//////////////////////////////////////////////////////
@@ -164,6 +107,9 @@
               <div class="button-box">
                 <button href="#change-address-popup" type="button" id="btn-responsive" class="change-address-popup">Change Address</button>
               </div>
+              <div class="button-box">
+                <button href="#change-address-popup" type="button" id="btn-responsive" class="subscribe-plan-popup">Subscribe new plan</button>
+              </div>
             </div>
           </div>
           <div class="col-lg-2 col-md-3 col-xs-12">
@@ -213,7 +159,7 @@
       <div class="profile-picture"><img class="img-circle img-responsive" id="display-profile-picture"></div>
       <input type="file" id="js-profile-picture">
       <br>
-      <div id="upload-success" class="alert alert-success" hidden><strong>Upload success!</strong> Profile picture updated.</div>
+      <div id="success-in-popup" class="alert alert-success" hidden></div>
       <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
 
     </div>
@@ -222,8 +168,8 @@
       <p class="title-field">Change your address</p>
       <label>Address<textarea id="js-new-address" rows="5" cols="80" class="form-control"></textarea></label>
       <br><br>
-      <div id="success-in-popup" class="alert alert-success" hidden><strong>Upload success!</strong> Profile picture updated.</div>
-      <button type="button" id="btn-change-address" class="btn btn-primary">Confirm</button>
+      <div id="success-in-popup" class="alert alert-success" hidden></div>
+      <button type="button" id="btn-change-address" class="btn btn-primary">Update</button>
     </div>
 
   </div>
@@ -289,6 +235,8 @@
                   var address = $("#js-new-address").val();
                   accInfoRef.update({
                     address: address
+                  }).then(function() {
+                    $("#change-address-popup > #success-in-popup").text("Address updated.").show();
                   });
                 });
               }
@@ -297,7 +245,7 @@
           },
           close: function() {
             // Will fire when popup is closed
-            $("#upload-success").hide();
+            $("#change-address-popup > #success-in-popup").hide();
           }
         }
       });

@@ -1,3 +1,61 @@
+.title-field {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.button-box {
+  padding-bottom: 10px;
+}
+
+.data-field {
+  font-weight: 350;
+  word-wrap: normal;
+}
+
+.profile-picture {
+  max-width: 270px;
+  max-height: 270px;
+  display: block;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 7%;
+}
+
+#btn-responsive {
+  width: 100%;
+  text-align: center;
+  word-wrap: break-word;
+  background: #F85A16;
+  color: #fff;
+  border: 2px solid #F85A16;
+  border-radius: 5px;
+}
+
+.profile-box {
+  border: 1px solid lightgrey;
+  width: 100%;
+  padding: 30px;
+  padding-bottom: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 40px;
+  position: relative;
+  min-height: 200px;
+}
+
+.profile-box.profile-box-settings {
+  padding: 15px;
+}
+
+.info {
+  margin: auto;
+  width: 90%;
+  padding: 10px 10px;
+  line-height: 1;
+}
 .btn-logout {
   margin-right: 0px;
   margin-bottom: 0px;

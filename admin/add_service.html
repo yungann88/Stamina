@@ -88,11 +88,10 @@
             <ul class="list-inline">
               <li><a href="setting_schedule.html">Schedule</a></li>
               <li><a href="setting_profile.html">Website Profile</a></li>
-              <li class="active"><a href="setting_account.html">Create Account</a></li>
+              <li><a href="setting_account.html">Create Account</a></li>
               <li><a href="pricing_plan.html">Modify Plan</a></li>
               <li><a href="notification.html">Feedback</a></li>
-              <li><a href="add_service.html">Add Service</a></li>
-
+              <li class="active"><a href="add_service.html">Add Service</a></li>
             </ul>
           </div>
         </div>
@@ -101,68 +100,58 @@
 
     <div class="setting-content">
       <div class="container">
-        <div class="successMessage"></div>
-        <div class="failedMessage"></div>
-        <form id="account-create-form">
-          <table class="table table-bordered">
-            <tr>
-              <td width="100">First Name</td>
-              <td><input type="text" id="js-fname" class="form-control" placeholder="First Name"></td>
-
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td><input type="text" id="js-lname" class="form-control" placeholder="Last Name"></td>
-            </tr>
-            <tr>
-              <td>NRIC</td>
-              <td><input type="text" id="js-nric" class="form-control" placeholder="NRIC"></td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td><textarea class="form-control" id="js-address" rows="4"></textarea></td>
-            </tr>
-            <tr>
-              <td>Email Address</td>
-              <td><input type="email" id="js-email" class="form-control" placeholder="User@Email.com"></td>
-            </tr>
-            <tr>
-              <td>Password</td>
-              <td><input type="password" id="js-password" class="form-control" placeholder="Password"></td>
-            </tr>
-            <tr>
-              <td>Account Level</td>
-              <td><select class="form-control" id="js-acc-level">
-                <option disabled selected> -- select an option -- </option>
-                <option value="1">User</option>
-                <option value="2">Trainer</option>
-                <option value="3">Administrator</option>
-              </select></td>
-            </tr>
-            <tr id="trainer-exe" hidden>
-              <td>Exercise handled</td>
-              <td><select class="form-control" id="js-trainer-exercise-type">
-                <option disabled selected> -- select an option -- </option>
-                <option value="Cardio">Cardio</option>
-                <option value="Body Building">Body Building</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Boxing">Boxing</option>
-                <option value="Ballet Dance">Ballet Dance</option>
-              </select></td>
-            </tr>
-          </table>
-          <div class="row">
-            <div class="form-group col-xs-12 text-center">
-              <button type="submit" class="btn btn-default btn-submit">Submit</button>
-            </div>
-          </div>
-
-        </form>
+        <table class="table table-bordered">
+          <tr>
+            <th>Class ID</th>
+            <th>Class Name</th>
+            <th>Handled by</th>
+            <th>Description</th>
+          </tr>
+        </table>
+        <div class="button-box">
+          <button href="#add-service-popup" type="button" id="btn-responsive" class="add-service-popup">Add Service</button>
+        </div>
       </div>
 
     </div>
 
     <div id="footer"></div>
+
+    <!--- Popup Content --->
+    <div id="add-service-popup" class="white-popup mfp-hide">
+      <h2 class="title-field" style="text-decoration:none;">Add service</h2>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>ID</label>
+          <input type="text" id="js-class-id" class="form-control" placeholder="Class ID">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>Name</label>
+          <input type="text" id="js-class-name" class="form-control" placeholder="Class Name">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>Handled by</label>
+          <select id="js-handled-trainer" class="form-control">
+            <option disabled selected> -- select an trainer -- </option>
+          </select>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>Description</label>
+          <textarea id="js-class-desc" class="form-control" placeholder="Describe about the class."></textarea>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+    <div id="success-in-popup" class="alert alert-success" hidden></div>
+    <button type="button" id="btn-change-address" class="btn btn-primary">Update</button>
+  </div>
   </div>
 
   <div class="gototop js-top">
@@ -205,6 +194,17 @@
           $("#trainer-exe").show();
         } else {
           $("#trainer-exe").hide();
+        }
+      });
+
+      $('.add-service-popup').magnificPopup({
+        type: 'inline',
+        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        callbacks: {
+          close: function() {
+            // Will fire when popup is closed
+            $("#upload-success").hide();
+          }
         }
       });
     });
