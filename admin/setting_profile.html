@@ -104,19 +104,19 @@
         <form id="website-profile-form">
           <div class="row">
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="Phone Number">OUR COMPANY : Phone Number</label>
+              <label id="Phone Number">OUR COMPANY : Phone Number   (eg: ###-#######)</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Phone number : (###) ###-####" pattern="\(\d[3]\)+\d[3]-\d[4]" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
+                <input type="text" class="form-control" placeholder="Phone Number : (###-#######)" pattern="^\d{3}-\d{7}$" id="js-phone-number" required data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
 
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="Email">OUR COMPANY : E-mail</label>
+              <label id="Email">OUR COMPANY : E-mail   (eg: name@domain.com)</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Email : (name@domain.com)" id="js-email" required data-validation-required-message="Please enter your phone number.">
+                <input type="email" class="form-control" placeholder="Email : (name@domain.com)" id="js-email" required data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
@@ -131,7 +131,7 @@
             </div>
 
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label id="website">OUR COMPANY : Webpage</label>
+              <label id="website">OUR COMPANY : More Information about our Website</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
                 <textarea class="form-control" id="js-website" rows="4" placeholder="More Information" required data-validation-required-message="Please enter the web address."></textarea>
