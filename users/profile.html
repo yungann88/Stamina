@@ -171,10 +171,21 @@
     <form id="add-service-form">
       <h2 class="title-field" style="text-decoration:none;">Subscribe new Plan</h2>
       <div class="row form-group">
-        <div class="col-md-12">
+        <div class="col-md-12" id="select-plan-div">
           <label>Select Plan</label>
-          <input type="text" id="js-class-id" class="form-control" placeholder="Class ID">
+          <select id="js-selected-plan" class="form-control">
+            <option disabled selected> -- select a plan -- </option>
+          </select>
+          <input type="hidden" id="" value="">
         </div>
+
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>Plan Description</label>
+          <p>Test Test Test</p>
+        </div>
+
       </div>
 
       <div class="form-group">
@@ -222,6 +233,27 @@
         midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
         callbacks: {
           open: function() {
+            /*--- Trainer Gather ---*/
+            var memInfoRef = firebase.database().ref('/membership_Info/');
+            memInfoRef.once('value', function(data) {
+              var membership_Info = data.val();
+              /* --- console.log(account_Info); ---*/
+              var keys = Object.keys(membership_Info);
+
+              for (var i = 0; i < keys.length; i++) {
+                var t = keys[i];
+                $("#js-selected-plan").append("<option value=\"" + membership_Info[t].membershipId + "\">" +
+                  membership_Info[t].membershipName + "</option>");
+                $("#select-plan-div").append("<input type=\"hidden\" id=\"hidn" + membership_Info[t].membershipId + "\" value=\"" + membership_Info[t].membershipDesc + "\">");
+              }
+              $("#js-selected-level").change(function() {
+                if ($(this).val() == "2") {
+                  $("#trainer-exe").show();
+                } else {
+                  $("#trainer-exe").hide();
+                }
+              });
+            });
 
           },
           close: function() {
