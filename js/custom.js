@@ -133,6 +133,7 @@ $(function() {
   /*--- Check Login Status and Display Logout Button ---*/
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
+      $("#signup-button").hide();
       $("#logout-button").show();
       var userID = user.uid;
       var database = firebase.database().ref('/account_Info/' + userID);
@@ -149,6 +150,7 @@ $(function() {
     } else {
       $('#login-status').html('Login');
       $("#logout-button").hide();
+      $("#signup-button").show();
       $("#adminPage").addClass("hidden");
     }
   });
@@ -158,7 +160,6 @@ $(function() {
     var newNode = data.val();
     var newElement = "<tr><td>" + newNode.classID + "</td><td>" + newNode.classDay + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classStartTime + "</td><td>" + newNode.classEndTime + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
     $("#table-monday").append(newElement);
-    console.log(newNode);
   });
 
   $('#feedback').on('submit', function(e) {
@@ -168,7 +169,6 @@ $(function() {
     var email = $('#email').val();
     var subject = $('#subject').val();
     var message = $('#message').val();
-    console.log(fname, lname, email, subject, message);
 
     firebase.database().ref('/feedback_info/').child(subject).set({
       fname: fname,

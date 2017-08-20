@@ -135,13 +135,36 @@
 .white-popup.white-popup-large {
   width: auto;
   max-width: 800px;
+  padding:15px;
   margin: 20px auto;
 }
-
-.popup-image {
+.info-area {
+  display: inline-block;
+}
+.img-area {
+  display: inline-block;
+}
+.info-area-img {
+  max-width: 30%;
+  padding:20px;
+  padding-right: 40px;
+  float: left;
+}
+.info-area-info {
+  padding: 20px;
 }
 
-.popup-image-showcase {
-  max-width: 700px;
-  display: block;
+.trainer-name {
+  font-weight: 500;
+  text-align: center;
+  padding-top: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .info-area-img {
+    max-width: 50%;
+    padding:10px;
+    padding-right: 20px;
+    float: left;
+  }
 }
