@@ -13,6 +13,20 @@
   padding: 3px 8px;
 
 }
+.btn-signup{
+      margin-right: 0px;
+  margin-bottom: 0px;
+  font-family: "Work Sans", Arial, sans-serif;
+  font-size: 12px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  padding: 3px 8px;
+}
 
 .top-row-btn {
   padding-bottom: 10px;
