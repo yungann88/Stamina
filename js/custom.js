@@ -169,17 +169,17 @@ $(function() {
     e.preventDefault();
     var PhoneNumber = $('#js-phone-number').val();
     var email = $('#js-email').val();
+	var address = $('#js-address').val();
+	var workingHours = $('#js-workingHours').val();
     var littleInfo = $('#js-little-info').val();
-    var address = $('#js-address').val();
-    var webpage = $('#js-website').val();
-    console.log(PhoneNumber, email, littleInfo, address, webpage);
+    console.log(PhoneNumber, email, address, workingHours, littleInfo);
 
     firebase.database().ref('/website-info/').child(001).set({
       PhoneNumber: PhoneNumber,
       email: email,
+	  address: address,
+	  workingHours: workingHours,
       littleInfo: littleInfo,
-      address: address,
-      webpage: webpage,
     });
   });
   /*---link the website profile form--*/
@@ -187,14 +187,14 @@ $(function() {
     var newNode = data.val();
     var newElement = newNode.PhoneNumber;
     var newElement2 = newNode.email;
-    var newElement3 = newNode.littleInfo;
-    var newElement4 = newNode.address;
-    var newElement5 = newNode.webpage;
-    $("#address1").append(newElement4);
-    $("#phone1").append(newElement);
-    $("#email1").append(newElement2);
-    $("#url1").append(newElement5);
-    $("#info1").append(newElement3);
+    var newElement3 = newNode.address;
+    var newElement4 = newNode.workingHours;
+	var newElement5 = newNode.littleInfo;
+	$("#phone1").append(newElement);
+	$("#email1").append(newElement2);
+	$("#address1").append(newElement3);
+	$("#workingHours1").append(newElement4);
+    $("#info1").append(newElement5);
   });
 
 
