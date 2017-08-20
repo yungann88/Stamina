@@ -90,7 +90,7 @@
     <div class="setting-content profile-content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-2 col-lg-offset-1 col-md-2 col-xs-12">
+          <div class="col-lg-2 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12">
             <div class="profile-box profile-box-settings">
               <div class="button-box">
                 <button href="#subscribe-plan-popup" type="button" id="btn-responsive" class="subscribe-plan-popup">Subscribe new plan</button>
@@ -104,7 +104,7 @@
 
             </div>
           </div>
-          <div class="col-lg-2 col-md-3 col-xs-12">
+          <div class="col-lg-2 col-md-4 col-xs-12 col-sm-12">
             <div class="profile-box">
               <h1 class="text-center">Your Account</h1>
               <div class="profile-picture">
@@ -114,7 +114,7 @@
 
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
             <div class="profile-box">
               <h1 class="text-center">Personal Info</h1>
               <div class="info">
@@ -127,7 +127,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
             <div class="profile-box">
               <h1 class="text-center">Membership</h1>
               <div class="info" id="membership-info"></div>
@@ -168,30 +168,30 @@
   </div>
   <!--- Subscribe new Plan --->
   <div id="subscribe-plan-popup" class="white-popup mfp-hide">
-    <form id="add-service-form">
-      <h2 class="title-field" style="text-decoration:none;">Subscribe new Plan</h2>
+    <h2 class="title-field" style="text-decoration:none;">Subscribe new Plan</h2>
+    <form id="add-service-form" hidden>
       <div class="row form-group">
         <div class="col-md-12" id="select-plan-div">
           <label>Select Plan</label>
           <select id="js-selected-plan" class="form-control">
             <option disabled selected> -- select a plan -- </option>
           </select>
-          <input type="hidden" id="" value="">
         </div>
 
       </div>
       <div class="row form-group">
         <div class="col-md-12">
           <label>Plan Description</label>
-          <p>Test Test Test</p>
+          <p id="display-plan-description"></p>
         </div>
 
       </div>
-
+      <div id="success-in-popup" class="alert alert-success" hidden></div>
       <div class="form-group">
-        <button type="button" id="btn-add-service" class="btn btn-primary">Submit</button>
+        <button type="button" id="btn-add-subscribe" class="btn btn-primary">Subscribe</button>
       </div>
     </form>
+    <h4 id="plan-exist-alert"></h4>
   </div>
   </div>
 
@@ -233,27 +233,57 @@
         midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
         callbacks: {
           open: function() {
-            /*--- Trainer Gather ---*/
-            var memInfoRef = firebase.database().ref('/membership_Info/');
-            memInfoRef.once('value', function(data) {
-              var membership_Info = data.val();
-              /* --- console.log(account_Info); ---*/
-              var keys = Object.keys(membership_Info);
+            firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                var userID = user.uid;
+                var memPlanRef = firebase.database().ref('/membership_Plan/');
+                memPlanRef.once('value', function(snapshot) {
+                  var existPlan = snapshot.child(userID).exists();
+                  if (!existPlan) {
+                    $("#add-service-form").show();
 
-              for (var i = 0; i < keys.length; i++) {
-                var t = keys[i];
-                $("#js-selected-plan").append("<option value=\"" + membership_Info[t].membershipId + "\">" +
-                  membership_Info[t].membershipName + "</option>");
-                $("#select-plan-div").append("<input type=\"hidden\" id=\"hidn" + membership_Info[t].membershipId + "\" value=\"" + membership_Info[t].membershipDesc + "\">");
+                    /*--- Trainer Gather ---*/
+                    var memInfoRef = firebase.database().ref('/membership_Info/');
+                    memInfoRef.once('value', function(data) {
+                      var membership_Info = data.val();
+                      /* --- console.log(account_Info); ---*/
+                      var keys = Object.keys(membership_Info);
+
+                      for (var i = 0; i < keys.length; i++) {
+                        var t = keys[i];
+                        $("#js-selected-plan").append("<option value=\"" + membership_Info[t].membershipId + "\">" +
+                          membership_Info[t].membershipName + "</option>");
+                        $("#select-plan-div").append("<input type=\"hidden\" id=\"hidn" + membership_Info[t].membershipId + "\" value=\"" + membership_Info[t].membershipDesc + "\">");
+                      }
+                      $("#js-selected-plan").change(function() {
+                        $("#display-plan-description").text(membership_Info[$(this).val()].membershipDesc);
+                      });
+
+                      /*here*/
+                      $("#btn-add-subscribe").on("click", function(e) {
+                        var subPlan = new Object();
+                        updates = {};
+                        subPlan.member_type = $("#js-selected-plan").val();
+                        subPlan.member_start = firebase.database.ServerValue.TIMESTAMP;
+                        updates['/membership_Plan/' + userID] = subPlan;
+                        firebase.database().ref().update(updates).then(function() {
+                          alert("Can");
+                          $("#js-selected-plan").attr("disabled", "disabled");
+                          $("#subscribe-plan-popup #success-in-popup").text("Thank you for you subscription").show();
+
+                        });
+                      });
+
+
+                    });
+                  } else {
+                    $("#add-service-form").hide();
+                    $("#plan-exist-alert").text("Subscription currently exist! Please wait until your current plan expired.");
+                  }
+                });
               }
-              $("#js-selected-level").change(function() {
-                if ($(this).val() == "2") {
-                  $("#trainer-exe").show();
-                } else {
-                  $("#trainer-exe").hide();
-                }
-              });
             });
+
 
           },
           close: function() {
