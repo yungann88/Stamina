@@ -172,6 +172,13 @@ $(function() {
       message: message,
     });
   });
+  
+  /*---display feedback form--*/
+  firebase.database().ref('/feedback_info/').on("child_added", function(data) {
+    var newNode = data.val();
+    var newElement = "<tr><td>" + newNode.lname + "</td><td>" + newNode.fname + "</td><td>" + newNode.email + "</td><td>" + newNode.subject + "</td><td>" + newNode.message + "</td</tr>";
+    $("#table-feedback").append(newElement);
+  });
 
   $('#website-profile-form').on('submit', function(e) {
     e.preventDefault();
@@ -187,5 +194,19 @@ $(function() {
       littleInfo: littleInfo,
       address: address,
     });
+  });
+   /*---link the website profile form--*/
+  firebase.database().ref('/website-info/').on("child_added", function(data) {
+    var newNode = data.val();
+    var newElement = newNode.PhoneNumber;
+    var newElement2 = newNode.email;
+    var newElement3 = newNode.littleInfo;
+    var newElement4 = newNode.address;
+    var newElement5 = newNode.webpage;
+    $("#address1").append(newElement4);
+    $("#phone1").append(newElement);
+    $("#email1").append(newElement2);
+    $("#url1").append(newElement5);
+    $("#info1").append(newElement3);
   });
 });
