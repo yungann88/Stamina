@@ -35,7 +35,7 @@
   border: 1px solid lightgrey;
   width: 100%;
   padding: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   background: rgba(0, 0, 0, 0.05);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -43,11 +43,12 @@
   border-radius: 5px;
   margin-bottom: 40px;
   position: relative;
-  min-height: 200px;
+  min-height: 50px;
 }
 
 .profile-box.profile-box-settings {
   padding: 15px;
+  padding-bottom: 5px;
 }
 
 .info {
