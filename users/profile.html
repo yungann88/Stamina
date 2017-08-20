@@ -264,7 +264,12 @@
                         var subPlan = new Object();
                         updates = {};
                         subPlan.member_type = $("#js-selected-plan").val();
-                        subPlan.member_start = firebase.database.ServerValue.TIMESTAMP;
+                        subPlan.member_start = getDateString(getToday());
+                        if (membership_Info[subPlan.member_type].membershipType == "contract") {
+                          subPlan.member_end = getDateString(getTarget(membership_Info[subPlan.member_type].membershipMonth));
+                        } else if (membership_Info[subPlan.member_type].membershipType == "prepaid") {
+                          subPlan.member_end = getDateString(getTarget(1));
+                        }
                         updates['/membership_Plan/' + userID] = subPlan;
                         firebase.database().ref().update(updates).then(function() {
                           alert("Can");
@@ -363,7 +368,7 @@
           var userID = user.uid;
           var membershipPlan = new Object();
           var accInfoRef = firebase.database().ref('/account_Info/' + userID);
-          var memPlanRef = firebase.database().ref('/membership_Plan/' + userID + '/member_type/');
+          var memPlanRef = firebase.database().ref('/membership_Plan/' + userID + '/');
           accInfoRef.once('value', function(data) {
             var userProfile = data.val();
             $('#profile-picture').attr('src', userProfile.profilePic);
@@ -375,12 +380,12 @@
           });
 
           memPlanRef.once('value', function(data) {
-            var planID = data.val();
-            console.log(planID == null);
-            if (planID == null) {
+            var memPlan = data.val();
+            console.log(memPlan.member_type == null);
+            if (memPlan.member_type == null) {
               $("#membership-info").append("<p class=\"data-field\">You're not subscribe to any plan.</p>");
             } else {
-              var planInfoRef = firebase.database().ref('/membership_Info/' + planID);
+              var planInfoRef = firebase.database().ref('/membership_Info/' + memPlan.member_type);
               planInfoRef.once('value', function(data) {
                 var membershipInfo = data.val();
                 $("#membership-info").append("<p class=\"title-field\">Membership ID:</p><p class=\"data-field\">" + membershipInfo.membershipId + "</p><p class=\"title-field\">Membership Name:</p><p class=\"data-field\">" +
@@ -390,6 +395,7 @@
                   $("#membership-info").append("<p class=\"data-field\">" + membershipInfo.membershipVisits + "times" + "</p>");
                 } else {
                   $("#membership-info").append("<p class=\"data-field\">" + membershipInfo.membershipMonth + " times" + "</p>");
+                  $("#membership-info").append("<p class=\"data-field\">Date: " + memPlan.member_start + " to " + memPlan.member_end + "</p>");
                 }
               });
             }
@@ -400,6 +406,34 @@
 
 
     });
+
+    function getToday() {
+      var d = new Date();
+      var today = new Object;
+      today.Month = d.getMonth() + 1;
+      today.Year = d.getFullYear();
+      today.Date = d.getDate();
+      var todayString = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+      return today;
+    }
+
+    function getDateString(date) {
+      var dateString = date.Month + '/' + date.Date + '/' + date.Year;
+      return dateString;
+    }
+
+    function getTarget(Month) {
+      var today = getToday();
+      var target = new Object();
+      target.Month = (today.Month + Month) % 12;
+      target.Year = Math.floor((today.Month + Month) / 12) + today.Year;
+      target.Date = today.Date;
+      return target;
+    }
+
+    function greaterDate(date1, date2) {
+      return (Date.parse(date1) > Date.parse(date2));
+    }
   </script>
 
 

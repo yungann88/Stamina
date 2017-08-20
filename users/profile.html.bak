@@ -10,67 +10,7 @@
   <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
   <meta name="author" content="freehtml5.co" />
   <style type="text/css">
-    .title-field {
-      font-weight: 500;
-      text-decoration: underline;
-    }
 
-    .data-field {
-      font-weight: 350;
-      padding-bottom: 13px;
-    }
-
-    .profile-picture {
-      max-width: 300px;
-      max-height: 300px;
-      display: block;
-      margin: auto;
-      margin-top: 5%;
-      margin-bottom: 7%;
-    }
-
-    #btn-responsive {
-      width: 100%;
-      text-align: center;
-      word-wrap: break-word;
-      background: #F85A16;
-      color: #fff;
-      border: 2px solid #F85A16;
-      border-radius: 5px;
-    }
-
-    .profile-box {
-      border: 1px solid lightgrey;
-      width: 100%;
-      padding: 30px;
-      background: rgba(0, 0, 0, 0.05);
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      border-radius: 5px;
-      margin-bottom: 40px;
-      position: relative;
-      min-height: 700px;
-    }
-
-    .profile-box2 {
-      min-height: 20px;
-      padding: 19px;
-      margin-bottom: 20px;
-      background-color: #f5f5f5;
-      border: 1px solid #e3e3e3;
-      border-radius: 4px;
-
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-    }
-
-    .info {
-      margin: auto;
-      width: 90%;
-      padding: 20px 10px;
-      line-height: 0.1;
-    }
   </style>
   <!--
 	//////////////////////////////////////////////////////
@@ -148,15 +88,35 @@
       </div>
     </nav>
     <div class="setting-content profile-content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-5 col-md-4 col-xs-12">
+          <div class="col-lg-2 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12">
+            <div class="profile-box profile-box-settings">
+              <div class="button-box">
+                <button href="#subscribe-plan-popup" type="button" id="btn-responsive" class="subscribe-plan-popup">Subscribe new plan</button>
+              </div>
+              <div class="button-box">
+                <button href="#insert-picture-popup" type="button" id="btn-responsive" class="insert-picture-popup">Change Profile Picture</button>
+              </div>
+              <div class="button-box">
+                <button href="#change-address-popup" type="button" id="btn-responsive" class="change-address-popup">Change Address</button>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-xs-12 col-sm-12">
             <div class="profile-box">
-              <h1 class="text-center">Personal Info</h1>
+              <h1 class="text-center">Your Account</h1>
               <div class="profile-picture">
                 <img alt="profile_picture" id="profile-picture" class="img-responsive img-circle" src="">
               </div>
               <h2 class="text-center" id="profile-name"></h2>
+
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="profile-box">
+              <h1 class="text-center">Personal Info</h1>
               <div class="info">
                 <p class="title-field">Email:</p>
                 <p id="profile-email" class="data-field"></p>
@@ -167,29 +127,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-5 col-md-4 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
             <div class="profile-box">
               <h1 class="text-center">Membership</h1>
-              <div class="info">
-                <p class="title-field">Membership ID:</p>
-                <p id="membership-id" class="data-field"></p>
-                <p class="title-field">Membership Name:</p>
-                <p id="membership-name" class="data-field"></p>
-                <p class="title-field">Membership Type:</p>
-                <p id="membership-type" class="data-field"></p>
-                <p class="title-field">Membership Description:</p>
-                <p id="membership-desc" class="data-field"></p>
-                <p class="title-field">Validity:</p>
-                <p id="membership-valid" class="data-field"></p>
-              </div>
+              <div class="info" id="membership-info"></div>
+            </div>
+          </div>
 
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-4 col-xs-12">
-            <div class="profile-box">
-              <button href="#insert-picture-popup" type="button" id="btn-responsive" class="open-popup-link">Change Profile Picture</button>
-            </div>
-          </div>
+
 
 
         </div>
@@ -200,18 +145,56 @@
     <div id="footer"></div>
 
     <!--- Popup content -->
+    <!--- Change Picture --->
     <div id="insert-picture-popup" class="white-popup mfp-hide">
-      <p class="title-field">Upload your profile picture</p>
-      <p class="data-field">Current profile picture</p>
-      <div class="profile-picture"><img class="img-circle img-responsive" id="display-profile-picture"></div>
-      <input type="file" id="js-profile-picture">
-      <br>
-      <div id="upload-success" class="alert alert-success" hidden><strong>Upload success!</strong> Profile picture updated.</div>
-      <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
-
+      <form id="change-picture-form">
+        <p class="title-field">Upload your profile picture</p>
+        <p class="data-field">Current profile picture</p>
+        <div class="profile-picture"><img class="img-circle img-responsive" id="display-profile-picture"></div>
+        <input type="file" accept="image/*" id="js-profile-picture">
+        <br>
+        <div id="success-in-popup" class="alert alert-success" hidden></div>
+        <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
+      </form>
     </div>
-
+    <!--- Change Address --->
+    <div id="change-address-popup" class="white-popup mfp-hide">
+      <p class="title-field">Change your address</p>
+      <label>Address<textarea id="js-new-address" rows="5" cols="80" class="form-control"></textarea></label>
+      <br><br>
+      <div id="success-in-popup" class="alert alert-success" hidden></div>
+      <button type="button" id="btn-change-address" class="btn btn-primary">Update</button>
+    </div>
   </div>
+  <!--- Subscribe new Plan --->
+  <div id="subscribe-plan-popup" class="white-popup mfp-hide">
+    <h2 class="title-field" style="text-decoration:none;">Subscribe new Plan</h2>
+    <form id="add-service-form" hidden>
+      <div class="row form-group">
+        <div class="col-md-12" id="select-plan-div">
+          <label>Select Plan</label>
+          <select id="js-selected-plan" class="form-control">
+            <option disabled selected> -- select a plan -- </option>
+          </select>
+        </div>
+
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <label>Plan Description</label>
+          <p id="display-plan-description"></p>
+        </div>
+
+      </div>
+      <div id="success-in-popup" class="alert alert-success" hidden></div>
+      <div class="form-group">
+        <button type="button" id="btn-add-subscribe" class="btn btn-primary">Subscribe</button>
+      </div>
+    </form>
+    <h4 id="plan-exist-alert"></h4>
+  </div>
+  </div>
+
 
   <div class="gototop js-top">
     <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
@@ -245,13 +228,135 @@
       $("#header").load("/header.html");
       $("#footer").load("/footer.html");
 
-      $('.open-popup-link').magnificPopup({
+      $('.subscribe-plan-popup').magnificPopup({
         type: 'inline',
         midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
         callbacks: {
+          open: function() {
+            firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                var userID = user.uid;
+                var memPlanRef = firebase.database().ref('/membership_Plan/');
+                memPlanRef.once('value', function(snapshot) {
+                  var existPlan = snapshot.child(userID).exists();
+                  if (!existPlan) {
+                    $("#add-service-form").show();
+
+                    /*--- Trainer Gather ---*/
+                    var memInfoRef = firebase.database().ref('/membership_Info/');
+                    memInfoRef.once('value', function(data) {
+                      var membership_Info = data.val();
+                      /* --- console.log(account_Info); ---*/
+                      var keys = Object.keys(membership_Info);
+
+                      for (var i = 0; i < keys.length; i++) {
+                        var t = keys[i];
+                        $("#js-selected-plan").append("<option value=\"" + membership_Info[t].membershipId + "\">" +
+                          membership_Info[t].membershipName + "</option>");
+                        $("#select-plan-div").append("<input type=\"hidden\" id=\"hidn" + membership_Info[t].membershipId + "\" value=\"" + membership_Info[t].membershipDesc + "\">");
+                      }
+                      $("#js-selected-plan").change(function() {
+                        $("#display-plan-description").text(membership_Info[$(this).val()].membershipDesc);
+                      });
+
+                      /*here*/
+                      $("#btn-add-subscribe").on("click", function(e) {
+                        var subPlan = new Object();
+                        updates = {};
+                        subPlan.member_type = $("#js-selected-plan").val();
+                        subPlan.member_start = getDateString(getToday());
+                        if (membership_Info[subPlan.member_type].membershipType == "contract") {
+                          subPlan.member_end = getDateString(getTarget(membership_Info[subPlan.member_type].membershipMonth));
+                        } else if (membership_Info[subPlan.member_type].membershipType == "prepaid") {
+                          subPlan.member_end = getDateString(getTarget(1));
+                        }
+                        updates['/membership_Plan/' + userID] = subPlan;
+                        firebase.database().ref().update(updates).then(function() {
+                          alert("Can");
+                          $("#js-selected-plan").attr("disabled", "disabled");
+                          $("#subscribe-plan-popup #success-in-popup").text("Thank you for you subscription").show();
+
+                        });
+                      });
+
+
+                    });
+                  } else {
+                    $("#add-service-form").hide();
+                    $("#plan-exist-alert").text("Subscription currently exist! Please wait until your current plan expired.");
+                  }
+                });
+              }
+            });
+
+
+          },
           close: function() {
             // Will fire when popup is closed
-            $("#upload-success").hide();
+            $("#success-in-popup").hide();
+            $("#change-picture-form").trigger("reset");
+          }
+        }
+      });
+
+
+      $('.insert-picture-popup').magnificPopup({
+        type: 'inline',
+        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        callbacks: {
+          open: function() {
+            $("#btn-upload").on("click", function(e) {
+              e.preventDefault();
+              var file = $("#js-profile-picture")[0].files[0];
+              var userID = firebase.auth().currentUser.uid;
+              var database = firebase.database().ref('/account_Info/' + userID);
+              firebase.storage().ref('profile_picture/' + userID + '_profilePic.jpg').put(file).then(function(snapshot) {
+                var url = snapshot.downloadURL;
+                database.update({
+                  profilePic: url
+                });
+                $("#display-profile-picture").attr("src", url);
+                $("#profile-picture").attr("src", url);
+                $("#success-in-popup").text("Profile picture updated.").show();
+              });
+            });
+          },
+          close: function() {
+            // Will fire when popup is closed
+            $("#success-in-popup").hide();
+            $("#change-picture-form").trigger("reset");
+          }
+        }
+      });
+
+      $('.change-address-popup').magnificPopup({
+        type: 'inline',
+        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        callbacks: {
+          open: function() {
+            firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                var userID = user.uid;
+                var accInfoRef = firebase.database().ref('/account_Info/' + userID);
+                accInfoRef.once('value', function(data) {
+                  var userProfile = data.val();
+                  $("#js-new-address").val(userProfile.address);
+                });
+                $("#btn-change-address").on('click', function() {
+                  var address = $("#js-new-address").val();
+                  accInfoRef.update({
+                    address: address
+                  }).then(function() {
+                    $("#change-address-popup > #success-in-popup").text("Address updated.").show();
+                  });
+                });
+              }
+            });
+
+          },
+          close: function() {
+            // Will fire when popup is closed
+            $("#change-address-popup > #success-in-popup").hide();
           }
         }
       });
@@ -277,42 +382,58 @@
           memPlanRef.once('value', function(data) {
             var planID = data.val();
             console.log(planID == null);
-            var planInfoRef = firebase.database().ref('/membership_Info/' + planID);
-            planInfoRef.once('value', function(data) {
-              var membershipInfo = data.val();
-              $("#membership-id").text(membershipInfo.membershipId);
-              $("#membership-name").text(membershipInfo.membershipName);
-              $("#membership-type").text(membershipInfo.membershipType);
-              $("#membership-desc").text(membershipInfo.membershipDesc);
-              if (membershipInfo.membershipType == "prepaid") {
-                $("#membership-valid").text(membershipInfo.membershipVisits + ' times');
-              } else {
-                $("#membership-valid").text(membershipInfo.membershipMonth + ' Months');
-              }
-            });
-
+            if (planID == null) {
+              $("#membership-info").append("<p class=\"data-field\">You're not subscribe to any plan.</p>");
+            } else {
+              var planInfoRef = firebase.database().ref('/membership_Info/' + planID);
+              planInfoRef.once('value', function(data) {
+                var membershipInfo = data.val();
+                $("#membership-info").append("<p class=\"title-field\">Membership ID:</p><p class=\"data-field\">" + membershipInfo.membershipId + "</p><p class=\"title-field\">Membership Name:</p><p class=\"data-field\">" +
+                  membershipInfo.membershipName + "</p><p class=\"title-field\">Membership Type:</p><p class=\"data-field\">" + membershipInfo.membershipType +
+                  "</p><p class=\"title-field\">Membership Description:</p><p class=\"data-field\">" + membershipInfo.membershipDesc + "</p><p class=\"title-field\">Validity:</p>")
+                if (membershipInfo.membershipType == "prepaid") {
+                  $("#membership-info").append("<p class=\"data-field\">" + membershipInfo.membershipVisits + "times" + "</p>");
+                } else {
+                  $("#membership-info").append("<p class=\"data-field\">" + membershipInfo.membershipMonth + " times" + "</p>");
+                  $("#membership-info").append("<p class=\"data-field\">" + membershipInfo.membershipMonth + " times" + "</p>");
+                }
+              });
+            }
           });
         }
       });
 
-      $("#btn-upload").on("click", function(e) {
-        e.preventDefault();
-        var file = $("#js-profile-picture")[0].files[0];
-        var userID = firebase.auth().currentUser.uid;
-        var database = firebase.database().ref('/account_Info/' + userID);
-        firebase.storage().ref('profile_picture/' + userID + '_profilePic.jpg').put(file).then(function(snapshot) {
-          var url = snapshot.downloadURL;
-          database.update({
-            profilePic: url
-          });
-          $("#display-profile-picture").attr("src", url);
-          $("#profile-picture").attr("src", url);
-          $("#upload-success").show();
 
-        });
-      });
 
     });
+
+    function getToday() {
+      var d = new Date();
+      var today = new Object;
+      today.Month = d.getMonth() + 1;
+      today.Year = d.getFullYear();
+      today.Date = d.getDate();
+      var todayString = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+      return today;
+    }
+
+    function getDateString(date) {
+      var dateString = date.Month + '/' + date.Date + '/' + date.Year;
+      return dateString;
+    }
+
+    function getTarget(Month) {
+      var today = getToday();
+      var target = new Object();
+      target.Month = (today.Month + Month) % 12;
+      target.Year = Math.floor((today.Month + Month) / 12) + today.Year;
+      target.Date = today.Date;
+      return target;
+    }
+
+    function greaterDate(date1, date2) {
+      return (Date.parse(date1) > Date.parse(date2));
+    }
   </script>
 
 
