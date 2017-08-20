@@ -107,22 +107,7 @@ $(function() {
 
   });
 
-  /*--- Trainer Gather ---*/
-  var database = firebase.database().ref('/account_Info/');
-  database.on('value', function(data) {
-    var account_Info = data.val();
-    /* --- console.log(account_Info); ---*/
-    var keys = Object.keys(account_Info);
 
-    for (var i = 0; i < keys.length; i++) {
-      var t = keys[i];
-      var acc_level = account_Info[t].acc_level;
-      if (acc_level == 2) {
-        $("#js-class-trainer").append("<option value=\"" + account_Info[t].fname + " " + account_Info[t].lname + "\">" +
-          account_Info[t].fname + " " + account_Info[t].lname + "</option>");
-      }
-    }
-  });
 
   /*--- Check Login Status and Display Logout Button ---*/
   firebase.auth().onAuthStateChanged(user => {
@@ -172,7 +157,7 @@ $(function() {
       message: message,
     });
   });
-  
+
   /*---display feedback form--*/
   firebase.database().ref('/feedback_info/').on("child_added", function(data) {
     var newNode = data.val();
@@ -195,7 +180,7 @@ $(function() {
       address: address,
     });
   });
-   /*---link the website profile form--*/
+  /*---link the website profile form--*/
   firebase.database().ref('/website-info/').on("child_added", function(data) {
     var newNode = data.val();
     var newElement = newNode.PhoneNumber;
@@ -209,4 +194,16 @@ $(function() {
     $("#url1").append(newElement5);
     $("#info1").append(newElement3);
   });
+
+
+  var classInfoRef = firebase.database().ref('/class_Info/');
+  classInfoRef.once('value', function(data) {
+    var class_Info = data.val();
+    var keys = Object.keys(class_Info);
+
+    for (var i = 0; i < keys.length; i++) {
+      var t = keys[i];
+    }
+  });
+
 });

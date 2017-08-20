@@ -100,6 +100,9 @@
 
     <div class="setting-content">
       <div class="container">
+        <div class="form-group pull-right">
+          <button href="#add-service-popup" type="button" id="bt" class="btn btn-primary btn-square add-service-popup">Add Service</button>
+        </div>
         <table class="table table-bordered">
           <tr>
             <th>Class ID</th>
@@ -108,9 +111,7 @@
             <th>Description</th>
           </tr>
         </table>
-        <div class="button-box">
-          <button href="#add-service-popup" type="button" id="btn-responsive" class="add-service-popup">Add Service</button>
-        </div>
+
       </div>
 
     </div>
@@ -118,34 +119,50 @@
     <div id="footer"></div>
 
     <!--- Popup Content --->
-    <div id="add-service-popup" class="white-popup mfp-hide">
+    <div id="add-service-popup" class="white-popup white-popup-md mfp-hide">
       <h2 class="title-field" style="text-decoration:none;">Add service</h2>
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label>ID</label>
-          <input type="text" id="js-class-id" class="form-control" placeholder="Class ID">
+      <form id="add-service-form">
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>ID</label>
+            <input type="text" id="js-class-id" class="form-control" placeholder="Class ID">
+          </div>
         </div>
-      </div>
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label>Name</label>
-          <input type="text" id="js-class-name" class="form-control" placeholder="Class Name">
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Name</label>
+            <input type="text" id="js-class-name" class="form-control" placeholder="Class Name">
+          </div>
         </div>
-      </div>
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label>Handled by</label>
-          <select id="js-handled-trainer" class="form-control">
-            <option disabled selected> -- select an trainer -- </option>
-          </select>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Handled by</label>
+            <select id="js-handled-trainer" class="form-control">
+              <option disabled selected> -- select an trainer -- </option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label>Description</label>
-          <textarea id="js-class-desc" class="form-control" placeholder="Describe about the class."></textarea>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Description</label>
+            <textarea id="js-class-desc" rows="5" class="form-control" placeholder="Describe about the class."></textarea>
+          </div>
         </div>
-      </div>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Class Picture</label>
+            <input type="file" accept="image/*" id="js-class-picture">
+          </div>
+          <div class="col-md-12">
+            <img id="display-class-picture" src="">
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
+          <button type="button" id="btn-add-service" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+
 
     </div>
     <br><br>
@@ -201,9 +218,54 @@
         type: 'inline',
         midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
         callbacks: {
+          open: function() {
+            /*--- Trainer Gather ---*/
+            var database = firebase.database().ref('/account_Info/');
+            database.once('value', function(data) {
+              var account_Info = data.val();
+              /* --- console.log(account_Info); ---*/
+              var keys = Object.keys(account_Info);
+
+              for (var i = 0; i < keys.length; i++) {
+                var t = keys[i];
+                var acc_level = account_Info[t].acc_level;
+                if (acc_level == 2) {
+                  $("#js-handled-trainer").append("<option value=\"" + account_Info[t].userId + "\">" +
+                    account_Info[t].fname + " " + account_Info[t].lname + "</option>");
+                }
+              }
+            });
+
+
+
+
+            $("#btn-upload").on("click", function() {
+              var classes = new Object();
+              classes.classID = $('#js-class-id').val();
+              classes.className = $('#js-class-name').val();
+              classes.handledBy = $('#js-handled-trainer').val();
+              classes.classDesc = $('#js-class-desc').val();
+              var file = $("#js-class-picture")[0].files[0];
+              firebase.storage().ref('class_picture/' + classes.classID + '_img.jpg').put(file).then(function(snapshot) {
+
+                classes.classPic = snapshot.downloadURL;
+                $("#display-class-picture").attr("src", classes.classPic);
+                $("#btn-add-service").on('click', function() {
+                  updates = {};
+                  updates['/class_Info/' + classes.classID] = classes;
+                  firebase.database().ref().update(updates).then(function() {
+
+                  });
+                });
+
+              });
+
+
+            });
+          },
           close: function() {
             // Will fire when popup is closed
-            $("#upload-success").hide();
+            $('#add-service-form').trigger("reset");
           }
         }
       });

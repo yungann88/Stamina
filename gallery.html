@@ -105,72 +105,33 @@
 					<div class="col-md-12">
 						<ul id="fh5co-portfolio-list">
 
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-1.jpg); ">
-								<a href="#photo-01" class="open-popup-link">
+							<li data-id="photo-01" class="one-third animate-box" data-animate-effect="fadeIn">
+								<a href="#photo-01" class="photo-popup">
 									<div class="case-studies-summary">
 										<span>Illustration</span>
 										<h2>Useful baskets</h2>
 									</div>
 								</a>
 							</li>
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-2.jpg); ">
-								<a href="#">
+							<li data-id="photo-01" class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/class_picture%2F_img.jpg?alt=media&token=fa157f69-3cb2-4c10-99dd-350f3b350527); ">
+								<a href="#photo-01" class="photo-popup">
 									<div class="case-studies-summary">
-										<span>Web Design</span>
-										<h2>Skater man in the road</h2>
+										<span>Illustration</span>
+										<h2>Useful baskets</h2>
+									</div>
+								</a>
+							</li>
+							<li data-id="photo-01" class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/class_picture%2F_img.jpg?alt=media&token=fa157f69-3cb2-4c10-99dd-350f3b350527); ">
+								<a href="#photo-01" class="photo-popup">
+									<div class="case-studies-summary">
+										<span>Illustration</span>
+										<h2>Useful baskets</h2>
 									</div>
 								</a>
 							</li>
 
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Web Design</span>
-										<h2>Two Glas of Juice</h2>
-									</div>
-								</a>
-							</li>
 
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-4.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Web Design</span>
-										<h2>Timer starts now!</h2>
-									</div>
-								</a>
-							</li>
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Web Design</span>
-										<h2>Two Glas of Juice</h2>
-									</div>
-								</a>
-							</li>
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-5.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Illustration</span>
-										<h2>Beautiful sunset</h2>
-									</div>
-								</a>
-							</li>
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-5.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Illustration</span>
-										<h2>Beautiful sunset</h2>
-									</div>
-								</a>
-							</li>
-							<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
-								<a href="#">
-									<div class="case-studies-summary">
-										<span>Web Design</span>
-										<h2>Two Glas of Juice</h2>
-									</div>
-								</a>
-							</li>
+
 						</ul>
 					</div>
 				</div>
@@ -240,10 +201,13 @@
 				$("#header").load("header.html");
 				$("#footer").load("footer.html");
 
-				$('.open-popup-link').magnificPopup({
+				$('.photo-popup').magnificPopup({
 					type: 'inline',
 					midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
 				});
+
+
+
 			});
 		</script>
 		<!-- Firebase -->

@@ -189,13 +189,21 @@
   max-width: 500px;
   margin: 20px auto;
 }
-
+.white-popup.white-popup-md {
+  width: auto;
+  max-width: 500px;
+  padding:30px;
+  margin: 20px auto;
+}
 .white-popup.white-popup-large {
   width: auto;
   max-width: 800px;
   padding:15px;
   margin: 20px auto;
 }
+
+
+
 .info-area {
   display: inline-block;
 }
