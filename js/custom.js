@@ -43,10 +43,6 @@ $(function() {
     firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
       .then(user => {
         userInfo.userId = firebase.auth().currentUser.uid;
-        if (userInfo.acc_level == 2) {
-          trainerExercise.exercise_type = $("#js-trainer-exercise-type").val();
-          updates['/trainer_Exercise/' + userInfo.userId] = trainerExercise;
-        }
         updates['/account_Info/' + userInfo.userId] = userInfo;
 
         firebase.database().ref().update(updates).then(function() {

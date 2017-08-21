@@ -292,13 +292,16 @@
         console.log(newNode.classTime + 1);
         console.log(newNode.classDay + 1);
 
-        classInfoRef.child(newNode.classID).once('value', function() {
-
+        classInfoRef.child(newNode.classExeType).once('value', function(data) {
+          var classExe = data.val();
+          console.log(classExe.classPic);
+          $("#timetable tr:nth-child(" + (newNode.classTime + 1) + ") > td:nth-child(" + (newNode.classDay + 1) + ")").removeClass("timetable-empty").html(
+            "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"" + classExe.classPic +
+            "\"></div><div class=\"schedule_slot_trainer\">" + newNode.classTrainer + "</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
+          );
         });
 
-        $("#timetable tr:nth-child(" + (newNode.classTime + 1) + ") > td:nth-child(" + (newNode.classDay + 1) + ")").removeClass("timetable-empty").html(
-          "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/class_picture%2FBX-Basic_img.jpg?alt=media&token=960c68c6-26f7-4577-90d7-ad44b863ce3f\"></div><div class=\"schedule_slot_trainer\">SUNDAR PICHAI</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
-        );
+
       });
     });
   </script>

@@ -139,17 +139,6 @@
                 <option value="3">Administrator</option>
               </select></td>
             </tr>
-            <tr id="trainer-exe" hidden>
-              <td>Exercise handled</td>
-              <td><select class="form-control" id="js-trainer-exercise-type">
-                <option disabled selected> -- select an option -- </option>
-                <option value="Cardio">Cardio</option>
-                <option value="Strength Training">Strength Training</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Boxing">Boxing</option>
-                <option value="Ballet Dance">Ballet Dance</option>
-              </select></td>
-            </tr>
           </table>
           <div class="row">
             <div class="form-group col-xs-12 text-center">
@@ -200,13 +189,7 @@
   <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
-      $("#js-acc-level").change(function() {
-        if ($(this).val() == "2") {
-          $("#trainer-exe").show();
-        } else {
-          $("#trainer-exe").hide();
-        }
-      });
+
     });
   </script>
 
