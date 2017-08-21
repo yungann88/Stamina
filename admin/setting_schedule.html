@@ -226,9 +226,22 @@
     <script src="/js/custom.js"></script>
     <script type="text/javascript">
       $(function() {
+
+
         var classInfoRef = firebase.database().ref('/class_Info/');
         var accountInfoRef = firebase.database().ref('/account_Info/');
         var scheduleInfoRef = firebase.database().ref('/schedule_Info/');
+
+        $(document.body).on('click', "table button", function() {
+          var classID = $(this).closest('tr').attr('id');
+          scheduleInfoRef.child(classID).remove();
+        });
+
+        scheduleInfoRef.on("child_removed", function(data) {
+          var removedClass = data.val();
+          $("#" + removedClass.classID).remove();
+        });
+
         classInfoRef.once('value', function(data) {
           var classInfo = data.val();
           var keys = Object.keys(classInfo);

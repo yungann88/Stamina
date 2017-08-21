@@ -295,13 +295,18 @@
         classInfoRef.child(newNode.classExeType).once('value', function(data) {
           var classExe = data.val();
           console.log(classExe.classPic);
-          $("#timetable tr:nth-child(" + (newNode.classTime + 1) + ") > td:nth-child(" + (newNode.classDay + 1) + ")").removeClass("timetable-empty").html(
+          $("#timetable tr:nth-child(" + (newNode.classTime + 1) + ") > td:nth-child(" + (newNode.classDay + 1) + ")").attr('id', newNode.classID).removeClass("timetable-empty").html(
             "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"" + classExe.classPic +
             "\"></div><div class=\"schedule_slot_trainer\">" + newNode.classTrainer + "</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
           );
         });
 
 
+      });
+
+      firebase.database().ref('/schedule_Info/').on("child_removed", function(data) {
+        var removedClass = data.val();
+        $("#" + removedClass.classID).removeAttr("id").addClass("timetable-empty").html("");
       });
     });
   </script>

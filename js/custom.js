@@ -109,7 +109,7 @@ $(function() {
   firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
     var newNode = data.val();
     var weekday = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    var newElement = "<tr><td>" + newNode.classID + "</td><td>" + weekday[newNode.classDay - 1] + "</td><td>" + newNode.classTime + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
+    var newElement = "<tr id=\"" + newNode.classID + "\"><td>" + newNode.classID + "</td><td>" + weekday[newNode.classDay - 1] + "</td><td>" + newNode.classTime + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classTrainer + "</td><td><button type=\"button\" id=\"btn-delete\" class=\"btn btn-danger btn-square\">Delete</button></td></tr>";
     $("#schedule-timetable").append(newElement);
   });
 
