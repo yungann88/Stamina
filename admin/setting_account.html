@@ -70,12 +70,9 @@
 </head>
 
 <body>
-
   <div class="fh5co-loader"></div>
-
   <div id="page">
     <nav id="header" class="fh5co-nav" role="navigation"></nav>
-
     <nav class="setting-nav">
       <div class="container">
         <div class="row">
@@ -92,21 +89,18 @@
               <li><a href="pricing_plan.html">Modify Plan</a></li>
               <li><a href="notification.html">Feedback</a></li>
               <li><a href="add_service.html">Add Service</a></li>
-
             </ul>
           </div>
         </div>
       </div>
     </nav>
-
     <div class="setting-content">
       <div class="container">
         <form id="account-create-form">
           <table class="table table-bordered">
             <tr>
-              <td width="100">First Name</td>
+              <td width="20%">First Name</td>
               <td><input type="text" id="js-fname" class="form-control" placeholder="First Name" required></td>
-
             </tr>
             <tr>
               <td>Last Name</td>
@@ -188,6 +182,22 @@
   <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
+
+      firebase.auth().onAuthStateChanged(user => {
+        var userID = user.uid;
+        console.log(userID);
+        var database = firebase.database().ref('/account_Info/' + userID);
+        database.on('value', function(data) {
+          var userProfile = data.val();
+          if (userProfile.acc_level != 3) {
+            $("body").hide();
+            alert("You have no access to this page.");
+            location.href = "/index.html";
+          } else {
+            $("body").show();
+          }
+        });
+      });
       /*--- Setting > Account Creation ---*/
       $('#account-create-form').on('submit', function(e) {
         e.preventDefault();
@@ -211,7 +221,7 @@
             firebase.database().ref().update(updates).then(function() {
               $('#success-message').addClass("alert-success").text("Account Successfully Created!").fadeIn();
               setTimeout(function() {
-                $("#success-message").fadeOut();
+                $("#success-message").removeClass("alert-success").fadeOut();
               }, 1500);
               $('#account-create-form').trigger("reset");
             });
@@ -219,7 +229,7 @@
           .catch(function(error) {
             $('#success-message').addClass("alert-danger").text(error.message).fadeIn();
             setTimeout(function() {
-              $("#success-message").fadeOut();
+              $("#success-message").removeClass("alert-danger").fadeOut();
             }, 1500);
           });
       });

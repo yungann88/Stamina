@@ -38,7 +38,7 @@ $(function() {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         alert('Successfully logged in.');
-        location.href = "/admin/setting_schedule.html";
+        location.href = "/index.html";
       })
       .catch(error => {
         alert('Failed to log in.');
@@ -53,6 +53,7 @@ $(function() {
     if (user) {
       $("#signup-button").hide();
       $("#logout-button").show();
+      $("#userPage").removeClass("hidden");
       var userID = user.uid;
       var database = firebase.database().ref('/account_Info/' + userID);
       database.on('value', function(data) {

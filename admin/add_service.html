@@ -103,12 +103,12 @@
         <div class="form-group pull-right">
           <button href="#add-service-popup" type="button" id="bt" class="btn btn-primary btn-square add-service-popup">Add Service</button>
         </div>
-        <table id="classTable" class="table table-bordered">
+        <table id="classTable" class="table table-bordered" width="100%">
           <tr>
-            <th>Class ID</th>
-            <th>Class Name</th>
-            <th>Description</th>
-            <th>Action</th>
+            <th width="15%">Class ID</th>
+            <th width="30%">Class Name</th>
+            <th width="45%">Description</th>
+            <th width="10%">Action</th>
 
           </tr>
 
@@ -300,7 +300,7 @@
                     $("#success-in-popup").text("New Service Added!").fadeIn();
                     setTimeout(function() {
                       $("#success-message").fadeOut();
-                    }, 3000);
+                    }, 1500);
                     $('#add-service-form').trigger("reset");
                     $("#display-class-picture").attr("src", "");
                   });
