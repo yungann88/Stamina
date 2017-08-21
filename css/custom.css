@@ -20,6 +20,10 @@
   margin-top: 5%;
   margin-bottom: 7%;
 }
+.upload-responsive {
+  max-width: inherit;
+  display: block;
+}
 
 #btn-responsive {
   width: 100%;

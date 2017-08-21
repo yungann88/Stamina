@@ -106,7 +106,7 @@
 
     <div class="setting-content">
       <div class="container">
-        <form id="admin-schedule-form">
+        <form id="add-schedule-form">
           <h3>Add new Class</h3>
           <table class="table table-bordered">
             <tr>
@@ -118,41 +118,40 @@
               <td>
                 <select class="form-control" id="js-class-day">
                   <option disabled selected> -- select an option -- </option>
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                  <option value="Sunday">Sunday</option>
+                  <option value="1">Monday</option>
+                  <option value="2">Tuesday</option>
+                  <option value="3">Wednesday</option>
+                  <option value="4">Thursday</option>
+                  <option value="5">Friday</option>
+                  <option value="6">Saturday</option>
+                  <option value="7">Sunday</option>
                 </select>
               </td>
             </tr>
 
             <tr>
-              <td>Class Size</td>
-              <td><input type="number" id="js-class-size" class="form-control"></td>
-            </tr>
-
-            <tr>
-              <td>Start Time</td>
-              <td><input type="time" id="js-class-start" class="form-control"></td>
-            </tr>
-
-            <tr>
-              <td>End Time</td>
-              <td><input type="time" id="js-class-end" class="form-control"></td>
+              <td>Class Time</td>
+              <td><select class="form-control" id="js-class-time">
+                <option disabled selected> -- select an timeslot -- </option>
+                <option value="1">10:00 - 11:00</option>
+                <option value="2">11:00 - 12:00</option>
+                <option value="3">12:00 - 13:00</option>
+                <option value="4">13:00 - 14:00</option>
+                <option value="5">14:00 - 15:00</option>
+                <option value="6">15:00 - 16:00</option>
+                <option value="7">16:00 - 17:00</option>
+                <option value="8">17:00 - 18:00</option>
+                <option value="9">18:00 - 19:00</option>
+                <option value="10">19:00 - 20:00</option>
+                <option value="11">20:00 - 21:00</option>
+                <option value="12">21:00 - 22:00</option>
+              </select></td>
             </tr>
 
             <tr>
               <td>Exercise</td>
               <td><select class="form-control" id="js-class-exercise">
-                <option disabled selected> -- select an option -- </option>
-                <option value="Cardio">Cardio</option>
-                <option value="Strength Training">Strength Training</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Boxing">Boxing</option>
-                <option value="Ballet Dance">Ballet Dance</option>
+                <option disabled selected> -- select an class -- </option>
               </select></td>
             </tr>
 
@@ -160,6 +159,7 @@
               <td>Trainer</td>
               <td><select class="form-control" id="js-class-trainer">
                     <option disabled selected> -- select an option -- </option>
+
             </select></td>
             </tr>
           </table>
@@ -173,126 +173,18 @@
       <br>
       <div class="container">
         <div class="row">
+          <table id="schedule-timetable" class="table table-bordered">
+            <tr>
+              <th>Class ID</th>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Exercise</th>
+              <th>Trainer</th>
+              <th>Action</th>
+            </tr>
+          </table>
 
-          <div class="fh5co-tabs" style="width:100%;">
-            <ul class="fh5co-tab-nav">
-              <li class="active"><a href="#" data-tab="1"><span class="visible-xs">M</span><span class="hidden-xs">Monday</span></a></li>
-              <li><a href="#" data-tab="2"><span class="visible-xs">T</span><span class="hidden-xs">Tuesday</span></a></li>
-              <li><a href="#" data-tab="3"><span class="visible-xs">W</span><span class="hidden-xs">Wednesday</span></a></li>
-              <li><a href="#" data-tab="4"><span class="visible-xs">Th</span><span class="hidden-xs">Thursday</span></a></li>
-              <li><a href="#" data-tab="5"><span class="visible-xs">F</span><span class="hidden-xs">Friday</span></a></li>
-              <li><a href="#" data-tab="6"><span class="visible-xs">S</span><span class="hidden-xs">Saturday</span></a></li>
-              <li><a href="#" data-tab="7"><span class="visible-xs">S</span><span class="hidden-xs">Sunday</span></a></li>
-            </ul>
 
-            <!-- Tabs -->
-            <div class="fh5co-tab-content-wrap">
-              <div class="fh5co-tab-content tab-content active" data-tab-content="1">
-                <br>
-                <table id="table-monday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="2">
-                <br>
-                <table id="table-tuesday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="3">
-                <br>
-                <table id="table-wednesday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="4">
-                <br>
-                <table id="table-thursday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="5">
-                <br>
-                <table id="table-friday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="6">
-                <br>
-                <table id="table-saturday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="fh5co-tab-content tab-content active" data-tab-content="7">
-                <br>
-                <table id="table-sunday" class="table table-bordered">
-                  <tr>
-                    <th>Class ID</th>
-                    <th>Day</th>
-                    <th>Exercise</th>
-                    <th>Start Time</th>
-                    <th>End time</th>
-                    <th>Trainer</th>
-                    <th>Action</th>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -332,8 +224,57 @@
     <script src="/js/main.js"></script>
     <!-- Custom -->
     <script src="/js/custom.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        var classInfoRef = firebase.database().ref('/class_Info/');
+        var accountInfoRef = firebase.database().ref('/account_Info/');
+        var scheduleInfoRef = firebase.database().ref('/schedule_Info/');
+        classInfoRef.once('value', function(data) {
+          var classInfo = data.val();
+          var keys = Object.keys(classInfo);
+          for (var i = 0; i < keys.length; i++) {
+            var t = keys[i];
+            $("#js-class-exercise").append("<option value=\"" + classInfo[t].classID + "\">" + classInfo[t].className + "</option>");
+
+          }
+        });
+        /*--- Trainer Gather ---*/
+        accountInfoRef.on('value', function(data) {
+          var account_Info = data.val();
+          var keys = Object.keys(account_Info);
+          for (var i = 0; i < keys.length; i++) {
+            var t = keys[i];
+            var acc_level = account_Info[t].acc_level;
+            if (acc_level == 2) {
+              $("#js-class-trainer").append("<option value=\"" + account_Info[t].fname + " " + account_Info[t].lname + "\">" +
+                account_Info[t].fname + " " + account_Info[t].lname + "</option>");
+            }
+          }
+        });
+
+        /*--- Setting Schedule ---*/
+        $("#add-schedule-form").on('submit', function(e) {
+          e.preventDefault();
+          var scheduleClass = new Object();
+          updates = {};
+          scheduleClass.classID = $('#js-class-id').val();
+          scheduleClass.classDay = parseInt($('#js-class-day').val());
+          scheduleClass.classTime = parseInt($('#js-class-time').val());
+          scheduleClass.classExeType = $('#js-class-exercise').val();
+          scheduleClass.classTrainer = $('#js-class-trainer').val();
+
+          updates['/schedule_Info/' + scheduleClass.classID] = scheduleClass;
+          firebase.database().ref().update(updates).then(function() {
+            $("#add-schedule-form").trigger("reset");
+            $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
+
+          });
+
+        });
 
 
+      });
+    </script>
 
 </body>
 

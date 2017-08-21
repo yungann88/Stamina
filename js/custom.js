@@ -81,31 +81,6 @@ $(function() {
       });
   });
 
-  /*--- Setting Schedule ---*/
-  $("#admin-schedule-form").on('submit', function(e) {
-    e.preventDefault();
-    var classID = $('#js-class-id').val();
-    var classDay = $('#js-class-day').val();
-    var classSize = $('#js-class-size').val();
-    var classStartTime = $('#js-class-start').val();
-    var classEndTime = $('#js-class-end').val();
-    var classExeType = $('#js-class-exercise').val();
-    var classTrainer = $('#js-class-trainer').val();
-    console.log(classID, classDay, classSize, classStartTime, classEndTime, classExeType, classTrainer);
-
-    firebase.database().ref('/schedule_Info/').child(classID).set({
-      classID: classID,
-      classDay: classDay,
-      classSize: parseInt(classSize),
-      classStartTime: classStartTime,
-      classEndTime: classEndTime,
-      classExeType: classExeType,
-      classTrainer: classTrainer,
-    });
-
-    $('#account-create-form').trigger("reset");
-
-  });
 
 
 
@@ -137,8 +112,9 @@ $(function() {
   /* --- Retrieve data from firebase to Admin Schedule --- */
   firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
     var newNode = data.val();
-    var newElement = "<tr><td>" + newNode.classID + "</td><td>" + newNode.classDay + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classStartTime + "</td><td>" + newNode.classEndTime + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
-    $("#table-monday").append(newElement);
+    var weekday = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var newElement = "<tr><td>" + newNode.classID + "</td><td>" + weekday[newNode.classDay - 1] + "</td><td>" + newNode.classTime + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classTrainer + "</td><td>NULL</td></tr>";
+    $("#schedule-timetable").append(newElement);
   });
 
   $('#feedback').on('submit', function(e) {
@@ -169,16 +145,16 @@ $(function() {
     e.preventDefault();
     var PhoneNumber = $('#js-phone-number').val();
     var email = $('#js-email').val();
-	var address = $('#js-address').val();
-	var workingHours = $('#js-workingHours').val();
+    var address = $('#js-address').val();
+    var workingHours = $('#js-workingHours').val();
     var littleInfo = $('#js-little-info').val();
     console.log(PhoneNumber, email, address, workingHours, littleInfo);
 
     firebase.database().ref('/website-info/').child(001).set({
       PhoneNumber: PhoneNumber,
       email: email,
-	  address: address,
-	  workingHours: workingHours,
+      address: address,
+      workingHours: workingHours,
       littleInfo: littleInfo,
     });
   });
@@ -189,11 +165,11 @@ $(function() {
     var newElement2 = newNode.email;
     var newElement3 = newNode.address;
     var newElement4 = newNode.workingHours;
-	var newElement5 = newNode.littleInfo;
-	$("#phone1").append(newElement);
-	$("#email1").append(newElement2);
-	$("#address1").append(newElement3);
-	$("#workingHours1").append(newElement4);
+    var newElement5 = newNode.littleInfo;
+    $("#phone1").append(newElement);
+    $("#email1").append(newElement2);
+    $("#address1").append(newElement3);
+    $("#workingHours1").append(newElement4);
     $("#info1").append(newElement5);
   });
 

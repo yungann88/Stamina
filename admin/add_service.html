@@ -103,13 +103,23 @@
         <div class="form-group pull-right">
           <button href="#add-service-popup" type="button" id="bt" class="btn btn-primary btn-square add-service-popup">Add Service</button>
         </div>
-        <table class="table table-bordered">
+        <table id="classTable" class="table table-bordered">
           <tr>
             <th>Class ID</th>
             <th>Class Name</th>
-            <th>Handled by</th>
             <th>Description</th>
+            <th>Action</th>
+
           </tr>
+
+
+
+
+
+
+
+
+
         </table>
 
       </div>
@@ -137,10 +147,43 @@
         </div>
         <div class="row form-group">
           <div class="col-md-12">
-            <label>Handled by</label>
-            <select id="js-handled-trainer" class="form-control">
-              <option disabled selected> -- select an trainer -- </option>
-            </select>
+            <label>Description</label>
+            <textarea id="js-class-desc" rows="5" class="form-control" placeholder="Describe about the class."></textarea>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Class Picture</label>
+            <input type="file" accept="image/*" id="js-class-picture">
+          </div>
+
+          <div class="col-md-12">
+            <br><img id="display-class-picture" src="" class="img-responsive">
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
+          <button type="button" id="btn-add-service" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+
+
+    </div>
+
+    <!--- Edit service --->
+    <div id="edit-service-popup" class="white-popup white-popup-md mfp-hide">
+      <h2 class="title-field" style="text-decoration:none;">Edit service</h2>
+      <form id="edit-service-form">
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Class ID</label>
+            <input type="text" id="js-class-id" class="form-control" placeholder="Class ID">
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-md-12">
+            <label>Name</label>
+            <input type="text" id="js-class-name" class="form-control" placeholder="Class Name">
           </div>
         </div>
         <div class="row form-group">
@@ -154,22 +197,16 @@
             <label>Class Picture</label>
             <input type="file" accept="image/*" id="js-class-picture">
           </div>
-          <div class="col-md-12">
-            <img id="display-class-picture" src="">
-          </div>
         </div>
+        <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/class_picture%2FBX-Basic_img.jpg?alt=media&token=960c68c6-26f7-4577-90d7-ad44b863ce3f" alt="">
         <div class="form-group">
-          <button type="button" id="btn-upload" class="btn btn-primary">Upload</button>
-          <button type="button" id="btn-add-service" class="btn btn-primary">Submit</button>
+          <button type="button" id="btn-upload" class="btn btn-primary">Upload picture</button>
+          <button type="button" id="btn-add-service" class="btn btn-primary">Confirm</button>
         </div>
       </form>
 
 
     </div>
-    <br><br>
-    <div id="success-in-popup" class="alert alert-success" hidden></div>
-    <button type="button" id="btn-change-address" class="btn btn-primary">Update</button>
-  </div>
   </div>
 
   <div class="gototop js-top">
@@ -207,6 +244,7 @@
   <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
+
       $("#js-acc-level").change(function() {
         if ($(this).val() == "2") {
           $("#trainer-exe").show();
@@ -215,7 +253,65 @@
         }
       });
 
+      var classInfoRef = firebase.database().ref("/class_Info/");
+      classInfoRef.on('child_added', function(data) {
+        var newClass = data.val();
+        $("#classTable").append("<tr id=\"" + newClass.classID + "\"><td>" + newClass.classID +
+          "</td><td>" + newClass.className + "</td><td>" + newClass.classDesc +
+          "</td><td><button id=\"btn-delete\" type=\"button\" class=\"btn btn-primary btn-square\">Delete</button></td></tr>"
+        );
+
+
+
+      });
+
+
+
+      $(document.body).on('click', "table button", function() {
+        var classID = $(this).closest('tr').attr('id');
+        var classInfoRef = firebase.database().ref("/class_Info/");
+        classInfoRef.child(classID).remove();
+      });
+
+
+
       $('.add-service-popup').magnificPopup({
+        type: 'inline',
+        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        callbacks: {
+          open: function() {
+            $("#btn-upload").on("click", function() {
+              var classes = new Object();
+              classes.classID = $('#js-class-id').val();
+              classes.className = $('#js-class-name').val();
+              classes.classDesc = $('#js-class-desc').val();
+              var file = $("#js-class-picture")[0].files[0];
+              var ext = getExtension(file.name);
+              firebase.storage().ref('class_picture/' + classes.classID + '_img.' + ext).put(file).then(function(snapshot) {
+
+                classes.classPic = snapshot.downloadURL;
+                $("#display-class-picture").attr("src", classes.classPic);
+                $("#btn-add-service").on('click', function() {
+                  updates = {};
+                  updates['/class_Info/' + classes.classID] = classes;
+                  firebase.database().ref().update(updates).then(function() {
+
+                  });
+                });
+
+              });
+
+
+            });
+          },
+          close: function() {
+            // Will fire when popup is closed
+            $('#add-service-form').trigger("reset");
+          }
+        }
+      });
+
+      $('.edit-service-popup').magnificPopup({
         type: 'inline',
         midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
         callbacks: {
@@ -237,8 +333,7 @@
               }
             });
 
-
-
+            var classInfoRef = firebase.database().ref('/class_Info/');
 
             $("#btn-upload").on("click", function() {
               var classes = new Object();
@@ -271,6 +366,70 @@
         }
       });
     });
+
+    function thisTest() {
+      $.magnificPopup.open({
+        items: {
+          type: 'inline',
+          midClick: true,
+          callbacks: {
+            open: function() {
+              /*--- Trainer Gather ---*/
+              var database = firebase.database().ref('/account_Info/');
+              database.once('value', function(data) {
+                var account_Info = data.val();
+                /* --- console.log(account_Info); ---*/
+                var keys = Object.keys(account_Info);
+
+                for (var i = 0; i < keys.length; i++) {
+                  var t = keys[i];
+                  var acc_level = account_Info[t].acc_level;
+                  if (acc_level == 2) {
+                    $("#js-handled-trainer").append("<option value=\"" + account_Info[t].userId + "\">" +
+                      account_Info[t].fname + " " + account_Info[t].lname + "</option>");
+                  }
+                }
+              });
+
+              var classInfoRef = firebase.database().ref('/class_Info/');
+
+              $("#btn-upload").on("click", function() {
+                var classes = new Object();
+                classes.classID = $('#js-class-id').val();
+                classes.className = $('#js-class-name').val();
+                classes.handledBy = $('#js-handled-trainer').val();
+                classes.classDesc = $('#js-class-desc').val();
+                var file = $("#js-class-picture")[0].files[0];
+                firebase.storage().ref('class_picture/' + classes.classID + '_img.jpg').put(file).then(function(snapshot) {
+
+                  classes.classPic = snapshot.downloadURL;
+                  $("#display-class-picture").attr("src", classes.classPic);
+                  $("#btn-add-service").on('click', function() {
+                    updates = {};
+                    updates['/class_Info/' + classes.classID] = classes;
+                    firebase.database().ref().update(updates).then(function() {
+
+                    });
+                  });
+
+                });
+
+
+              });
+            },
+            close: function() {
+              // Will fire when popup is closed
+              $('#add-service-form').trigger("reset");
+            }
+          }
+        }
+      });
+    }
+
+    function getExtension(filename) {
+      var parts = filename.split('.');
+      return parts[parts.length - 1];
+    }
   </script>
 
 
