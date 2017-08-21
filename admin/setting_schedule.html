@@ -251,7 +251,6 @@
             }
           }
         });
-
         /* --- Retrieve data from firebase to Admin Schedule --- */
         firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
           var newNode = data.val();
@@ -261,7 +260,6 @@
             .classTrainer + "</td><td><button type=\"button\" id=\"btn-delete\" class=\"btn btn-danger btn-square\">Delete</button></td></tr>";
           $("#schedule-timetable").append(newElement);
         });
-
         /*--- Setting Schedule ---*/
         $("#add-schedule-form").on('submit', function(e) {
           e.preventDefault();
@@ -272,7 +270,6 @@
           scheduleClass.classTime = parseInt($('#js-class-time').val());
           scheduleClass.classExeType = $('#js-class-exercise').val();
           scheduleClass.classTrainer = $('#js-class-trainer').val();
-
           updates['/schedule_Info/' + scheduleClass.classID] = scheduleClass;
           firebase.database().ref().update(updates).then(function() {
             $("#add-schedule-form").trigger("reset");
@@ -280,17 +277,13 @@
             setTimeout(function() {
               $("#success-message").fadeOut();
             }, 3000);
-
           }).catch(function(error) {
             $('#success-message').addClass("alert-danger").text(error.message).fadeIn();
             setTimeout(function() {
               $("#success-message").fadeOut();
             }, 1500);
           });
-
         });
-
-
       });
     </script>
 
