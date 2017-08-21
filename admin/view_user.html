@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Geek Fitness - Sign up now!</title>
+  <title>Geek Fitness (Admin)- View Users</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Geek Fitness. Become a member now!" />
   <meta name="keywords" content="fitness, geek, workout, gym, bodybuilding, abs, weight, gain, personal, trainer, fit, exercise" />
@@ -56,66 +56,57 @@
 </head>
 
 <body>
+
   <div class="fh5co-loader"></div>
+
   <div id="page">
     <nav id="header" class="fh5co-nav" role="navigation"></nav>
+
     <nav class="setting-nav">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 text-center setting-title">
-            <p>JOIN OUR FAMILY</p>
+            <p>Settings</p>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12 text-center menu-2">
+            <ul class="list-inline">
+              <li><a href="add_schedule.html">Schedule</a></li>
+              <li><a href="web_profile.html">Website Profile</a></li>
+              <li><a href="create_account.html">Create Account</a></li>
+              <li><a href="membership_plan.html">Membership Plan</a></li>
+              <li><a href="view_feedback.html">Feedback</a></li>
+              <li><a href="add_service.html">Add Service</a></li>
+              <li class="active"><a href="view_user.html">View Users</a></li>
+            </ul>
           </div>
         </div>
       </div>
     </nav>
-    <div class="setting-content">
-      <div class="container">
-        <form id="account-create-form">
-          <h2>Account Creation Form</h2>
-          <table class="table table-bordered">
-            <tr>
-              <td width="20%">First Name</td>
-              <td><input type="text" id="js-fname" class="form-control" placeholder="First Name" required></td>
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td><input type="text" id="js-lname" class="form-control" placeholder="Last Name" required></td>
-            </tr>
-            <tr>
-              <td>NRIC</td>
-              <td><input type="text" id="js-nric" class="form-control" placeholder="NRIC" required></td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td><textarea class="form-control" id="js-address" rows="4" required></textarea></td>
-            </tr>
-            <tr>
-              <td>Email Address</td>
-              <td><input type="email" id="js-email" class="form-control" placeholder="User@Email.com" required></td>
-            </tr>
-            <tr>
-              <td>Password</td>
-              <td><input type="password" id="js-password" class="form-control" placeholder="Password" required></td>
-            </tr>
-          </table>
-          <div id="success-message" class="alert" hidden></div>
-          <div class="row">
-            <div class="form-group col-xs-12 text-center">
-              <button type="submit" class="btn btn-default btn-submit">Submit</button>
-            </div>
-          </div>
 
-        </form>
+    <div class="container">
+      <div class="col-md-12">
+        <table id="manage-user-table" class="table table-bordered">
+          <tr>
+            <th width="12.5%">Name</th>
+            <th width="12.5%">Email</th>
+            <th width="15%">User ID</th>
+            <th width="10%">Account Level</th>
+            <th width="10%">NRIC</th>
+            <th width="20%">Address</th>
+            <th width="10%">Profile Picture</th>
+            <th width="10%">Action</th>
+          </tr>
+
+          <td><img class="img-responsive" src=\ ""+ userProfile.profilePic+ "\"></td>"
+
+        </table>
       </div>
-
     </div>
-
     <div id="footer"></div>
   </div>
+
 
   <div class="gototop js-top">
     <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
@@ -138,51 +129,38 @@
   <!-- Magnific Popup -->
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/magnific-popup-options.js"></script>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-  <!-- Main -->
-  <script src="/js/main.js"></script>
-  <!-- Custom -->
-  <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
       $("#header").load("/header.html");
       $("#footer").load("/footer.html");
+    });
+  </script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 
-      /*--- Setting > Account Creation ---*/
-      $('#account-create-form').on('submit', function(e) {
-        e.preventDefault();
-        var updates = {};
-        var password = $('#js-password').val();
-        var userInfo = new Object();
-        var memberPlan = new Object();
-        var trainerExercise = new Object()
-        userInfo.fname = $('#js-fname').val();
-        userInfo.lname = $('#js-lname').val();
-        userInfo.nric = $('#js-nric').val();
-        userInfo.address = $('#js-address').val();
-        userInfo.email = $('#js-email').val();
-        userInfo.acc_level = 1;
-        userInfo.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
-        firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
-          .then(user => {
-            userInfo.userId = firebase.auth().currentUser.uid;
-            updates['/account_Info/' + userInfo.userId] = userInfo;
-            firebase.database().ref().update(updates).then(function() {
-              $('#success-message').addClass("alert-success").text("Account Successfully Created!").fadeIn();
-              setTimeout(function() {
-                $("#success-message").fadeOut();
-              }, 1500);
-              $('#account-create-form').trigger("reset");
-              location.href = "/users/profile.html";
-            });
-          })
-          .catch(function(error) {
-            $('#success-message').addClass("alert-danger").text(error.message).fadeIn();
-            setTimeout(function() {
-              $("#success-message").removeClass("alert-danger").fadeOut();
-            }, 1500);
-          });
+  <!-- Main -->
+  <script src="/js/main.js"></script>
+  <!-- Custom -->
+  <script src="/js/custom.js"></script>
+  <!-- Admin login Check -->
+  <script src="/js/adminCheck.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      var accountInfoRef = firebase.database().ref("/account_Info/");
+      accountInfoRef.on('child_added', function(data) {
+        var userProfile = data.val();
+        $("#manage-user-table").append("<tr id=\"userProfile.userId\"><td>" + userProfile.fname + " " + userProfile.lname +
+          "</td><td>" + userProfile.email + "</td><td>" + userProfile.userId +
+          "</td><td>" + userProfile.acc_level + "</td><td>" + userProfile.nric +
+          "</td><td>" + userProfile.address + "</td><td><img class=\"img-responsive\" src=\"" +
+          userProfile.profilePic + "\"></td><td><button type=\"button\" id=\"btn-delete\" class=\"btn btn-danger btn-square\">Delete</button></td></tr>"
+        );
+      });
+
+      $(document.body).on('click', "table button", function() {
+        var userID = $(this).closest('tr').attr('id');
+        var selectedUser = firebase.auth().getUser(userID);
+        alert(selectedUser);
       });
 
     });

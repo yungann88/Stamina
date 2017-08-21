@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Geek Fitness (Admin)- Add Membership plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Geek Fitness. Become a member now!" />
+  <meta name="keywords" content="fitness, geek, workout, gym, bodybuilding, abs, weight, gain, personal, trainer, fit, exercise" />
+  <meta name="author" content="freehtml5.co" />
+
+  <!-- Facebook and Twitter integration -->
+  <meta property="og:title" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:site_name" content="" />
+  <meta property="og:description" content="" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:image" content="" />
+  <meta name="twitter:url" content="" />
+  <meta name="twitter:card" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="/css/animate.css">
+  <!-- Font Awesome -->
+  <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <!-- Owl Carousel  -->
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Modernizr JS -->
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+  <!-- FOR IE9 below -->
+  <!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+  <!-- Admin Page CSS  -->
+  <link rel="stylesheet" href="/css/admin.css">
+  <!-- jQuery UI Structure CSS -->
+  <link rel="stylesheet" href="/jqueryui/jquery-ui.structure.min.css">
+  <!-- jQuery UI Theme CSS -->
+  <link rel="stylesheet" href="/jqueryui/jquery-ui.theme.min.css">
+
+</head>
+
+<body>
+
+  <div class="fh5co-loader"></div>
+
+  <div id="page">
+    <nav id="header" class="fh5co-nav" role="navigation"></nav>
+
+    <nav class="setting-nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 text-center setting-title">
+            <p>Settings</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 text-center menu-2">
+            <ul class="list-inline">
+              <li><a href="add_schedule.html">Schedule</a></li>
+              <li><a href="web_profile.html">Website Profile</a></li>
+              <li><a href="create_account.html">Create Account</a></li>
+              <li class="active"><a href="membership_plan.html">Membership Plan</a></li>
+              <li><a href="view_feedback.html">Feedback</a></li>
+              <li><a href="add_service.html">Add Service</a></li>
+              <li><a href="view_user.html">View Users</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="setting-content">
+      <div class="container">
+        <div class="col-md-12">
+          <form id="add-plan-form">
+            <h3>Add New Membership Type</h3>
+            <table id="add-plan-table" class="table table-bordered">
+              <tr>
+                <th width="30%">ID</th>
+                <td><input type="text" id="js-membership-id" class="form-control" placeholder="Membership ID"></td>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <td><input type="text" id="js-membership-name" class="form-control" placeholder="Membership Name"></td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td><textarea id="js-membership-desc" class="form-control" rows="5" placeholder="Membership Description"></textarea></td>
+              </tr>
+              <tr>
+                <th>Membership Type</th>
+                <td><select id="js-membership-type" class="form-control">
+                  <option disabled selected> -- select an option -- </option>
+                  <option value="contract">Contract</option>
+                  <option value="prepaid">Prepaid</option>
+                </select></td>
+              </tr>
+              <tr id="prepaid-visit" hidden>
+                <th>Number of visits<br><em>(Prepaid based membership)</em></th>
+                <td><input type="number" class="form-control" id="js-prepaid-times" placeholder="Number of times can visit."></td>
+              </tr>
+              <tr id="contract-month" hidden>
+                <th>Number of months<br><em>(Contract based membership)</em></th>
+                <td><input type="number" class="form-control" id="js-contract-month" placeholder="Number of month."></td>
+              </tr>
+              <tr>
+                <th>Price</th>
+                <td><input type="text" id="js-membership-price" class="form-control" placeholder="Membership Price"></td>
+              </tr>
+            </table>
+            <div id="success-in-popup" class="alert" hidden></div>
+            <div class="row">
+              <div class="form-group col-xs-12 text-left">
+                <button type="submit" id="add-plan-btn" class="btn btn-default btn-submit">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+      <br>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 container-1140">
+            <table id="mem-plan-table" class="table table-bordered">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Membership Type</th>
+                <th>Validity</th>
+                <th>Action</th>
+              </tr>
+
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div id="footer"></div>
+
+    <div class="gototop js-top">
+      <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <!-- Stellar Parallax -->
+    <script src="/js/jquery.stellar.min.js"></script>
+    <!-- Carousel -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="/js/jquery.countTo.js"></script>
+    <!-- Magnific Popup -->
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/magnific-popup-options.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $("#header").load("/header.html");
+        $("#footer").load("/footer.html");
+      });
+    </script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <!-- Main -->
+    <script src="/js/main.js"></script>
+    <!-- Custom -->
+    <script src="/js/custom.js"></script>
+    <!-- Admin login Check -->
+    <script src="/js/adminCheck.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+        var memInfoRef = firebase.database().ref('/membership_Info/');
+        memInfoRef.on('child_added', function(data) {
+          var membershipInfo = data.val();
+          var type;
+          var num;
+          if (membershipInfo.membershipType == "contract") {
+            type = membershipInfo.membershipType;
+            num = membershipInfo.membershipMonth;
+            $("#mem-plan-table").append("<tr id=\"" + membershipInfo.membershipId + "\"><td>" + membershipInfo.membershipId +
+              "</td><td>" + membershipInfo.membershipName + "</td><td>" + membershipInfo.membershipPrice +
+              "</td><td>" + membershipInfo.membershipDesc + "</td><td>" + membershipInfo.membershipType +
+              "</td><td>" + membershipInfo.membershipMonth +
+              "</td><td><button type=\"button\" class=\"btn btn-danger btn-square\" id=\"btn-delete\">Delete</button></td></tr>");
+          } else {
+            type = membershipInfo.membershipType;
+            num = membershipInfo.membershipVisits;
+            $("#mem-plan-table").append("<tr id=\"" + membershipInfo.membershipId + "\"><td>" + membershipInfo.membershipId +
+              "</td><td>" + membershipInfo.membershipName + "</td><td>" + membershipInfo.membershipPrice +
+              "</td><td>" + membershipInfo.membershipDesc + "</td><td>" + membershipInfo.membershipType +
+              "</td><td>" + membershipInfo.membershipVisits +
+              "</td><td><button type=\"button\" class=\"btn btn-danger btn-square\" id=\"btn-delete\">Delete</button></td></tr>");
+          }
+        });
+
+        $("#js-membership-type").change(function() {
+          if ($(this).val() == "contract") {
+            alert("contract");
+            $("#prepaid-visit").hide();
+            $("#contract-month").show();
+          } else if ($(this).val() == "prepaid") {
+            alert("prepaid");
+            $("#prepaid-visit").show();
+            $("#contract-month").hide();
+
+          }
+        });
+
+        $(document.body).on('click', "table button", function() {
+          var membershipId = $(this).closest('tr').attr('id');
+          memInfoRef.child(membershipId).remove();
+        });
+
+        memInfoRef.on("child_removed", function(data) {
+          var removedMembership = data.val();
+          $("#" + removedMembership.membershipId).remove();
+        });
+
+        $("#add-plan-btn").on('click', function(e) {
+          e.preventDefault();
+          updates = {};
+          var membershipPlan = new Object();
+          membershipPlan.membershipId = $("#js-membership-id").val();
+          membershipPlan.membershipName = $("#js-membership-name").val();
+          membershipPlan.membershipDesc = $("#js-membership-desc").val();
+          membershipPlan.membershipType = $("#js-membership-type").val();
+          membershipPlan.membershipPrice = $("#js-membership-price").val();
+          if (membershipPlan.membershipType == "contract") {
+            membershipPlan.membershipMonth = parseInt($("#js-contract-month").val());
+            updates[/membership_Info/ + membershipPlan.membershipId + '/'] = membershipPlan;
+          } else {
+            membershipPlan.membershipVisits = parseInt($("#js-prepaid-times").val());
+            updates[/membership_Info/ + membershipPlan.membershipId + '/'] = membershipPlan;
+          }
+          firebase.database().ref().update(updates).then(function() {
+            $("#success-in-popup").addClass("alert-success").text("New Membership Plan Added!").fadeIn();
+            setTimeout(function() {
+              $("#success-message").removeClass("alert-success").fadeOut();
+            }, 1500);
+          });
+        });
+      });
+    </script>
+
+
+
+</body>
+
+</html>
