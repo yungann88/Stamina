@@ -101,38 +101,36 @@
 
     <div class="setting-content">
       <div class="container">
-        <div class="successMessage"></div>
-        <div class="failedMessage"></div>
         <form id="account-create-form">
           <table class="table table-bordered">
             <tr>
               <td width="100">First Name</td>
-              <td><input type="text" id="js-fname" class="form-control" placeholder="First Name"></td>
+              <td><input type="text" id="js-fname" class="form-control" placeholder="First Name" required></td>
 
             </tr>
             <tr>
               <td>Last Name</td>
-              <td><input type="text" id="js-lname" class="form-control" placeholder="Last Name"></td>
+              <td><input type="text" id="js-lname" class="form-control" placeholder="Last Name" required></td>
             </tr>
             <tr>
               <td>NRIC</td>
-              <td><input type="text" id="js-nric" class="form-control" placeholder="NRIC"></td>
+              <td><input type="text" id="js-nric" class="form-control" placeholder="NRIC" required></td>
             </tr>
             <tr>
               <td>Address</td>
-              <td><textarea class="form-control" id="js-address" rows="4"></textarea></td>
+              <td><textarea class="form-control" id="js-address" rows="4" required></textarea></td>
             </tr>
             <tr>
               <td>Email Address</td>
-              <td><input type="email" id="js-email" class="form-control" placeholder="User@Email.com"></td>
+              <td><input type="email" id="js-email" class="form-control" placeholder="User@Email.com" required></td>
             </tr>
             <tr>
               <td>Password</td>
-              <td><input type="password" id="js-password" class="form-control" placeholder="Password"></td>
+              <td><input type="password" id="js-password" class="form-control" placeholder="Password" required></td>
             </tr>
             <tr>
               <td>Account Level</td>
-              <td><select class="form-control" id="js-acc-level">
+              <td><select class="form-control" id="js-acc-level" required>
                 <option disabled selected> -- select an option -- </option>
                 <option value="1">User</option>
                 <option value="2">Trainer</option>
@@ -140,6 +138,7 @@
               </select></td>
             </tr>
           </table>
+          <div id="success-message" class="alert" hidden></div>
           <div class="row">
             <div class="form-group col-xs-12 text-center">
               <button type="submit" class="btn btn-default btn-submit">Submit</button>
@@ -189,7 +188,41 @@
   <script src="/js/custom.js"></script>
   <script type="text/javascript">
     $(function() {
+      /*--- Setting > Account Creation ---*/
+      $('#account-create-form').on('submit', function(e) {
+        e.preventDefault();
+        var updates = {};
+        var password = $('#js-password').val();
+        var userInfo = new Object();
+        var memberPlan = new Object();
+        var trainerExercise = new Object()
+        userInfo.fname = $('#js-fname').val();
+        userInfo.lname = $('#js-lname').val();
+        userInfo.nric = $('#js-nric').val();
+        userInfo.address = $('#js-address').val();
+        userInfo.email = $('#js-email').val();
+        userInfo.acc_level = parseInt($('#js-acc-level').val());
+        userInfo.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
+        firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
+          .then(user => {
+            userInfo.userId = firebase.auth().currentUser.uid;
+            updates['/account_Info/' + userInfo.userId] = userInfo;
 
+            firebase.database().ref().update(updates).then(function() {
+              $('#success-message').addClass("alert-success").text("Account Successfully Created!").fadeIn();
+              setTimeout(function() {
+                $("#success-message").fadeOut();
+              }, 1500);
+              $('#account-create-form').trigger("reset");
+            });
+          })
+          .catch(function(error) {
+            $('#success-message').addClass("alert-danger").text(error.message).fadeIn();
+            setTimeout(function() {
+              $("#success-message").fadeOut();
+            }, 1500);
+          });
+      });
     });
   </script>
 

@@ -25,39 +25,7 @@ $(function() {
   });
 
 
-  /*--- Setting > Account Creation ---*/
-  $('#account-create-form').on('submit', function(e) {
-    e.preventDefault();
-    var updates = {};
-    var password = $('#js-password').val();
-    var userInfo = new Object();
-    var memberPlan = new Object();
-    var trainerExercise = new Object()
-    userInfo.fname = $('#js-fname').val();
-    userInfo.lname = $('#js-lname').val();
-    userInfo.nric = $('#js-nric').val();
-    userInfo.address = $('#js-address').val();
-    userInfo.email = $('#js-email').val();
-    userInfo.acc_level = parseInt($('#js-acc-level').val());
-    userInfo.profilePic = "https://firebasestorage.googleapis.com/v0/b/uccd2223-may-2017.appspot.com/o/profile_picture%2Fdefault.jpg?alt=media&token=76be87bb-611a-45e8-8420-bc6e975c0476";
-    firebase.auth().createUserWithEmailAndPassword(userInfo.email, password)
-      .then(user => {
-        userInfo.userId = firebase.auth().currentUser.uid;
-        updates['/account_Info/' + userInfo.userId] = userInfo;
 
-        firebase.database().ref().update(updates).then(function() {
-          $('#account-create-form').trigger("reset");
-          $('.successMessage').html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="sr-only">Message:</span> Account Successfully Created !</div>');
-
-        });
-      })
-      .catch(error => {
-        $('.failedMessage').html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Message:</span> Failed to Create Account !</div>')
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert('Error Code: ' + errorCode + '\nError Message: ' + errorMessage);
-      });
-  });
 
   /*--- Login with Email Function ---*/
   $('#login-with-email').on('click', event => {
@@ -105,13 +73,7 @@ $(function() {
     }
   });
 
-  /* --- Retrieve data from firebase to Admin Schedule --- */
-  firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
-    var newNode = data.val();
-    var weekday = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    var newElement = "<tr id=\"" + newNode.classID + "\"><td>" + newNode.classID + "</td><td>" + weekday[newNode.classDay - 1] + "</td><td>" + newNode.classTime + "</td><td>" + newNode.classExeType + "</td><td>" + newNode.classTrainer + "</td><td><button type=\"button\" id=\"btn-delete\" class=\"btn btn-danger btn-square\">Delete</button></td></tr>";
-    $("#schedule-timetable").append(newElement);
-  });
+
 
   $('#feedback').on('submit', function(e) {
     e.preventDefault();

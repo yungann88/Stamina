@@ -137,9 +137,10 @@
   top: 50%;
   transform: translate(10%, -30%);
   text-transform: uppercase;
-  font-weight: bold;
-  font-weight: 600;
-  font-size: 24px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+  font-size: 22px;
+  min-width: 200px;
 }
 
 .navbar-header .navbar-brand span {
@@ -339,10 +340,17 @@
   padding: 5px 5px 0
 }
 
-.schedule_slot_timedif {
-  font-size: 10px;
+.schedule_slot_classId {
+  font-size: 12px;
+  font-weight: lighter;
   font-family: 'Encode Sans', sans-serif;
   text-transform: uppercase;
   padding: 0 5px 5px
 }
-.container-1140{overflow-x:auto}
+.container-1140{
+  overflow-x:auto;
+}
+#schedule-timetable td,
+#schedule-timetable th {
+  font-size: 18px;
+}

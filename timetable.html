@@ -102,16 +102,6 @@
               <td width="13.6%" class="timetable-pur">Sunday</td>
             </tr>
             <tr>
-              <td class="timetable-black">9:00</td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-              <td class="timetable-empty"></td>
-            </tr>
-            <tr>
               <td class="timetable-black">10:00</td>
               <td class="timetable-empty"></td>
               <td class="timetable-empty"></td>
@@ -278,13 +268,6 @@
       $("#footer").load("../footer.html");
       var classInfoRef = firebase.database().ref("/class_Info/");
 
-      $("#timetable tr:nth-child(4) > td:nth-child(6)").removeClass("timetable-empty").html(
-        "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"http://www.celebrityfitness.com/media/club/groupfitness/class/icons/basic_yoga.png\"></div><div class=\"schedule_slot_trainer\">SUNDAR PICHAI</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
-      );
-      $("#timetable tr:nth-child(4) > td:nth-child(4)").removeClass("timetable-empty").html(
-        "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"http://www.celebrityfitness.com/media/club/groupfitness/class/icons/basic_yoga.png\"></div><div class=\"schedule_slot_trainer\">ELON MUSK</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
-      );
-
       /* --- Retrieve data from firebase to Admin Schedule --- */
       firebase.database().ref('/schedule_Info/').on("child_added", function(data) {
         var newNode = data.val();
@@ -297,7 +280,7 @@
           console.log(classExe.classPic);
           $("#timetable tr:nth-child(" + (newNode.classTime + 1) + ") > td:nth-child(" + (newNode.classDay + 1) + ")").attr('id', newNode.classID).removeClass("timetable-empty").html(
             "<div class=\"schedule_slot\"><div class=\"schedule_slot_name\"><img src=\"" + classExe.classPic +
-            "\"></div><div class=\"schedule_slot_trainer\">" + newNode.classTrainer + "</div><div class=\"schedule_slot_timedif\">50 Minutes</div></div>"
+            "\"></div><div class=\"schedule_slot_trainer\">" + newNode.classTrainer + "</div><div class=\"schedule_slot_classId\">" + newNode.classID + "</div></div>"
           );
         });
 
